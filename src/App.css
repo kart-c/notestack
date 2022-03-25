@@ -1,6 +1,5 @@
 :root {
-	--body-bg: #747992;
-	--body-content-bg: #1d1f3e;
+	--body-bg: #1d1f3e;
 	--text-primary: #fcfcfd;
 	--primary-color: #ee4a4b;
 	--secondary-color: #ffb701;
@@ -16,9 +15,5 @@ iframe {
 body {
 	background-color: var(--body-bg);
 	color: var(--text-primary);
-}
-
-main {
-	background-color: var(--body-content-bg);
-	box-shadow: 0 0 10px 0px var(--body-content-bg);
+	height: 100%;
 }

@@ -1,8 +1,7 @@
 .main {
-	margin: 5rem auto;
 	border-radius: 1.6rem;
+	height: 100%;
 	padding: 2.4rem;
-	width: 80%;
 }
 
 .heading {
@@ -63,6 +62,10 @@
 	flex-direction: column;
 }
 
+.heroContainer > div:last-of-type {
+	text-align: center;
+}
+
 .heroImg {
 	width: 80%;
 	margin: 6.4rem auto;
@@ -86,15 +89,15 @@ h3 > span.heroTextDesign {
 	display: inline-block;
 	color: var(--secondary-color);
 	transform: rotateZ(-10deg) translate(4px, -4px);
-	padding: 4px;
+	padding: 4px 8px;
 	border: 1px solid var(--secondary-color);
 	position: relative;
 }
 
 .heroTextDesign::before {
 	content: '';
-	width: 5px;
-	height: 5px;
+	width: 6px;
+	height: 6px;
 	display: inline-block;
 	background-color: var(--secondary-color);
 	border-radius: 50%;
@@ -105,8 +108,8 @@ h3 > span.heroTextDesign {
 
 .heroTextDesign::after {
 	content: '';
-	width: 5px;
-	height: 5px;
+	width: 6px;
+	height: 6px;
 	display: inline-block;
 	background-color: var(--secondary-color);
 	border-radius: 50%;
@@ -117,8 +120,8 @@ h3 > span.heroTextDesign {
 
 .heroTextDesign > span::before {
 	content: '';
-	width: 5px;
-	height: 5px;
+	width: 6px;
+	height: 6px;
 	display: inline-block;
 	background-color: var(--secondary-color);
 	border-radius: 50%;
@@ -129,8 +132,8 @@ h3 > span.heroTextDesign {
 
 .heroTextDesign > span::after {
 	content: '';
-	width: 5px;
-	height: 5px;
+	width: 6px;
+	height: 6px;
 	display: inline-block;
 	background-color: var(--secondary-color);
 	border-radius: 50%;
@@ -140,7 +143,7 @@ h3 > span.heroTextDesign {
 }
 
 p {
-	margin-top: 2.4rem;
+	margin: 2.4rem auto 0;
 	max-width: 50ch;
 }
 
@@ -175,6 +178,10 @@ p {
 	.heroImg {
 		margin: 0 auto;
 		order: 2;
+	}
+
+	.heroContainer > div:last-of-type {
+		text-align: left;
 	}
 
 	.authContainer {
