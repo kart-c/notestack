@@ -25,7 +25,6 @@
 .headingLogo {
 	background-color: var(--secondary-color);
 	border-radius: 8px;
-	box-shadow: 0 0 5px 0 var(--lynx-grey);
 	display: inline-block;
 	height: 4rem;
 	width: 3.2rem;

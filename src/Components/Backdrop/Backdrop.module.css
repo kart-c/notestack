@@ -5,4 +5,5 @@
 	background-color: #0000007a;
 	z-index: 1;
 	cursor: pointer;
+	backdrop-filter: blur(3px);
 }
