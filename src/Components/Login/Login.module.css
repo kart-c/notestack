@@ -1,0 +1,118 @@
+.modal {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--body-bg);
+	padding: 2.4rem;
+	max-width: 28rem;
+	border-radius: 1.6rem;
+	box-shadow: 0 0 15px 0 var(--black);
+	z-index: 2;
+	width: 100%;
+}
+
+.modal h3 {
+	font-weight: 700;
+	margin: 0;
+	text-align: center;
+}
+
+.inputContainer label {
+	display: inline-block;
+	font-size: 1.6rem;
+	margin: 1.6rem 0 0;
+	color: var(--white);
+	position: relative;
+	user-select: none;
+}
+
+.inputContainer label::after {
+	content: '*';
+	color: var(--primary-color);
+	font-size: 1rem;
+	position: absolute;
+	top: 0;
+	right: -10px;
+}
+
+.inputContainer input {
+	box-sizing: border-box;
+	background-color: transparent;
+	border-width: 0 0 3px 0;
+	border-color: var(--secondary-color);
+	color: var(--white);
+}
+
+.inputContainer + button {
+	background-color: transparent;
+	cursor: pointer;
+	display: inline-block;
+	margin-top: 1.6rem;
+	color: var(--info-color);
+	font-size: 1.4rem;
+	text-decoration: underline;
+}
+
+.inputContainer + button:focus {
+	border: 1px solid var(--info-color);
+}
+
+.checkboxContainer {
+	margin-top: 1.6rem;
+}
+
+.checkboxContainer input {
+	width: fit-content;
+	margin: 0 1.6rem 0 0.4rem;
+}
+
+.checkboxContainer input:focus {
+	outline: 1px solid var(--info-color);
+}
+
+.checkboxContainer label {
+	font-size: 1.4rem;
+	user-select: none;
+}
+
+.guestLogin {
+	display: block;
+	margin-top: 1.6rem;
+	background-color: var(--info-color);
+	width: 80%;
+	margin: 2.4rem auto 0;
+}
+
+.btn {
+	display: block;
+	background-color: var(--primary-color);
+	font-size: 1.4rem;
+	font-weight: 700;
+	padding: 1.2rem 1.6rem;
+	text-transform: uppercase;
+	width: 80%;
+	margin: 2.4rem auto 0;
+}
+
+.spacer {
+	border-bottom: 1px solid var(--lynx-grey);
+	line-height: 0;
+	margin-top: 2.4rem;
+	text-align: center;
+}
+
+.spacer span {
+	background-color: var(--body-bg);
+	font-size: 1rem;
+	padding: 0 0.4rem;
+}
+
+.secondary {
+	display: block;
+	background-color: var(--white);
+	color: var(--black);
+	margin: 2.4rem auto 0;
+	width: 80%;
+	padding: 1.2rem 1.6rem;
+}
