@@ -29,7 +29,7 @@ const Signup = () => {
 				</div>
 				<div className={`checkbox-container ${styles.checkboxContainer}`}>
 					<input type="checkbox" name="disabled example input" id="checkbox-1" />
-					<label htmlFor="checkbox-1">Remember me</label>
+					<label htmlFor="checkbox-1">Accept all terms and conditions</label>
 				</div>
 				<button className={`btn ${styles.btn}`} type="submit">
 					Signup
