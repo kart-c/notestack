@@ -1,11 +1,11 @@
 import React from 'react';
 import { Login, Signup } from '../index';
 
-const LoginModal = ({ modalState }) => {
+const LoginModal = ({ modalState, setModalState }) => {
 	if (modalState === 'login') {
-		return <Login />;
+		return <Login setModalState={setModalState} />;
 	} else {
-		return <Signup />;
+		return <Signup setModalState={setModalState} />;
 	}
 };
 

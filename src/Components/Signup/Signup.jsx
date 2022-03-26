@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../Login/Login.module.css';
 
-const Signup = () => {
+const Signup = ({ setModalState }) => {
 	return (
 		<div className={styles.modal}>
 			<form>
@@ -34,7 +34,11 @@ const Signup = () => {
 				<div className={styles.spacer}>
 					<span>OR</span>
 				</div>
-				<button className={`btn ${styles.btn} ${styles.secondary}`} type="button">
+				<button
+					className={`btn ${styles.btn} ${styles.secondary}`}
+					type="button"
+					onClick={() => setModalState('login')}
+				>
 					Log In
 				</button>
 			</form>
