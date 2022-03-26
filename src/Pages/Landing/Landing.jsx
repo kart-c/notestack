@@ -8,8 +8,12 @@ const Landing = () => {
 
 	return (
 		<>
-			{modalState === 'login' && <LoginModal modalState={modalState} />}
-			{modalState === 'signup' && <LoginModal modalState={modalState} />}
+			{modalState === 'login' && (
+				<LoginModal modalState={modalState} setModalState={setModalState} />
+			)}
+			{modalState === 'signup' && (
+				<LoginModal modalState={modalState} setModalState={setModalState} />
+			)}
 			{modalState && <Backdrop setModalState={setModalState} />}
 			<main className={styles.main}>
 				<h1 className={styles.heading}>
