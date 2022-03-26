@@ -8,19 +8,21 @@ const Login = () => {
 				<h3>Login</h3>
 				<div className={`input-container ${styles.inputContainer}`}>
 					<label htmlFor="email">Email Address </label>
-					<input type="email" id="email" name="email" placeholder="Enter your email" />
+					<input type="email" id="email" name="email" placeholder="johndoe@gmail.com" />
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
 					<label htmlFor="password">Password </label>
-					<input type="password" id="password" name="password" placeholder="Enter your password" />
+					<input type="password" id="password" name="password" placeholder="************" />
 				</div>
-				<button type="button">Forgot password?</button>
-				<div className={`checkbox-container ${styles.checkboxContainer}`}>
-					<input type="checkbox" name="disabled example input" id="checkbox-1" />
-					<label htmlFor="checkbox-1">Remember me</label>
+				<div className={styles.checkboxContainer}>
+					<div className="checkbox-container">
+						<input type="checkbox" name="disabled example input" id="checkbox-1" />
+						<label htmlFor="checkbox-1">Remember me</label>
+					</div>
+					<button type="button">Forgot password?</button>
 				</div>
 				<button className={`btn ${styles.guestLogin}`} type="button">
-					Log In as guest
+					Guest Login
 				</button>
 				<button className={`btn ${styles.btn}`} type="submit">
 					Log In

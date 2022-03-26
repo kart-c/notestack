@@ -8,28 +8,25 @@ const Signup = () => {
 				<h3>Signup</h3>
 				<div className={`input-container ${styles.inputContainer}`}>
 					<label htmlFor="name">Full Name </label>
-					<input type="text" id="name" name="name" placeholder="Enter your full name" />
+					<input type="text" id="name" name="name" placeholder="John Doe" />
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
 					<label htmlFor="email">Email Address </label>
-					<input type="email" id="email" name="email" placeholder="Enter your email" />
+					<input type="email" id="email" name="email" placeholder="johndoe@gmail.com" />
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
 					<label htmlFor="password">Password </label>
-					<input type="password" id="password" name="password" placeholder="Enter your password" />
+					<input type="password" id="password" name="password" placeholder="************" />
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
 					<label htmlFor="confirm-password">Confirm Password </label>
-					<input
-						type="password"
-						id="confirm-password"
-						name="password"
-						placeholder="Confirm password"
-					/>
+					<input type="password" id="confirm-password" name="password" placeholder="************" />
 				</div>
-				<div className={`checkbox-container ${styles.checkboxContainer}`}>
-					<input type="checkbox" name="disabled example input" id="checkbox-1" />
-					<label htmlFor="checkbox-1">Accept all terms and conditions</label>
+				<div className={styles.checkboxContainer}>
+					<div className="checkbox-container ">
+						<input type="checkbox" name="disabled example input" id="checkbox-1" />
+						<label htmlFor="checkbox-1">Accept all terms and conditions</label>
+					</div>
 				</div>
 				<button className={`btn ${styles.btn}`} type="submit">
 					Signup

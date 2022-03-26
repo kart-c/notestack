@@ -48,23 +48,24 @@
 	font-size: 1.2rem;
 }
 
-.inputContainer + button {
+.checkboxContainer {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1.6rem;
+}
+
+.checkboxContainer > button {
 	background-color: transparent;
 	cursor: pointer;
 	display: inline-block;
-	margin-top: 1.6rem;
 	color: var(--info-color);
 	font-size: 1.2rem;
 	text-decoration: underline;
 }
 
-.checkboxContainer {
-	margin-top: 1.6rem;
-}
-
 .checkboxContainer input {
 	width: fit-content;
-	margin: 0 1.6rem 0 0.4rem;
+	margin-right: 8px;
 }
 
 .checkboxContainer label {
@@ -76,7 +77,7 @@
 	display: block;
 	margin-top: 1.6rem;
 	background-color: var(--info-color);
-	width: 50%;
+	width: 40%;
 	margin: 2.4rem auto 0;
 	font-size: 1.2rem;
 }
