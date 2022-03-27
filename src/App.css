@@ -21,4 +21,5 @@ body {
 
 #root {
 	display: flex;
+	margin: auto;
 }
