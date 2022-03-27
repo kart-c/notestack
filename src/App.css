@@ -1,9 +1,11 @@
 :root {
-	--body-bg: #1d1f3e;
+	--body-bg: #1d2136;
 	--text-primary: #fcfcfd;
 	--primary-color: #ee4a4b;
 	--secondary-color: #ffb701;
 	--white: #fff;
+	--body-bg-2: #242644;
+	--body-bg-3: #232b4f;
 }
 
 /* iframe style was given to avoid the react overlay bug */
@@ -15,4 +17,8 @@ body {
 	background-color: var(--body-bg);
 	color: var(--text-primary);
 	height: 100%;
+}
+
+#root {
+	display: flex;
 }
