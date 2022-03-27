@@ -1,0 +1,11 @@
+.editorSection {
+	margin: 1.6rem;
+	background-color: var(--body-bg-3);
+	flex-grow: 1;
+	padding: 1.6rem;
+}
+
+.editor {
+	border: 1px solid var(--text-primary);
+	padding: 1.6rem;
+}
