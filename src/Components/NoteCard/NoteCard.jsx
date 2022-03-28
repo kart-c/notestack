@@ -2,12 +2,12 @@ import React from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
 import styles from './NoteCard.module.css';
 
-const NoteCard = ({ noteTitle, noteContent }) => {
+const NoteCard = ({ noteTitle, noteContent, bgColor }) => {
 	return (
-		<article className={`card ${styles.card}`}>
+		<article className={`card ${styles.card}`} style={{ backgroundColor: bgColor }}>
 			<div className={`content ${styles.content}`}>
-				<span>{HtmlParser(noteTitle)}</span>
-				<p>{HtmlParser(noteContent)}</p>
+				{HtmlParser(noteTitle)}
+				{HtmlParser(noteContent)}
 			</div>
 		</article>
 	);
