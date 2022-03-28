@@ -1,0 +1,25 @@
+.ql-snow .ql-picker {
+	color: var(--primary-text);
+}
+
+.ql-snow .ql-picker-options .ql-picker-item {
+	color: #111;
+}
+
+.ql-snow .ql-stroke {
+	stroke: #fff;
+}
+
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+	fill: #fff;
+}
+
+.ql-editor {
+	word-break: break-word;
+	white-space: normal;
+}
+
+.ql-toolbar.ql-snow {
+	background-color: var(--body-bg-3);
+}

@@ -1,7 +1,13 @@
 import React from 'react';
+import { useNotes } from '../../Context';
+import { NoteCard } from '../NoteCard/NoteCard';
 import styles from './LabelNotes.module.css';
 
 const LabelNotes = () => {
+	const {
+		notesState: { notes },
+	} = useNotes();
+
 	return (
 		<div className={styles.labelNotes}>
 			<div className={`input-container ${styles.inputContainer}`}>
@@ -18,33 +24,7 @@ const LabelNotes = () => {
 					<label htmlFor="last">Last First</label>
 				</div>
 			</div>
-			<article className={`card ${styles.card}`}>
-				<div className={`content ${styles.content}`}>
-					<span>Card title</span>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores dignissimos libero.
-					</p>
-				</div>
-				<img src="https://picsum.photos/100" alt="basic-card image" className="card-img" />
-			</article>
-			<article className={`card ${styles.card}`}>
-				<div className={`content ${styles.content}`}>
-					<span>Card title</span>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores dignissimos libero.
-					</p>
-				</div>
-				<img src="https://picsum.photos/100" alt="basic-card image" className="card-img" />
-			</article>
-			<article className={`card ${styles.card}`}>
-				<div className={`content ${styles.content}`}>
-					<span>Card title</span>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores dignissimos libero.
-					</p>
-				</div>
-				<img src="https://picsum.photos/100" alt="basic-card image" className="card-img" />
-			</article>
+			{notes.length > 0 ? notes.map((note) => <NoteCard key={note._id} {...note} />) : null}
 		</div>
 	);
 };

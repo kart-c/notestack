@@ -141,7 +141,7 @@ h3 > span.heroTextDesign {
 	right: -3px;
 }
 
-p {
+.heroContainer p {
 	margin: 2.4rem auto 0;
 	max-width: 50ch;
 }
