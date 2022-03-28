@@ -2,6 +2,7 @@
 	background-color: var(--body-bg-2);
 	width: 24rem;
 	padding: 1.6rem;
+	flex-shrink: 0;
 }
 
 .inputContainer {
