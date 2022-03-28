@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context';
 import { loginService } from '../../Services';
 import styles from '../Login/Login.module.css';
@@ -12,6 +13,8 @@ const Signup = ({ setModalState }) => {
 
 	const { authDispatch } = useAuth();
 
+	const navigate = useNavigate();
+
 	const signupHandler = async (e) => {
 		e.preventDefault();
 		try {
@@ -21,6 +24,7 @@ const Signup = ({ setModalState }) => {
 				authDispatch({ type: 'AUTH', payload: response.data.encodedToken });
 				alert('Signed up!!');
 				setModalState('');
+				navigate('/home');
 			} else {
 				console.error('ERROR: ', response);
 				alert('ERROR');
