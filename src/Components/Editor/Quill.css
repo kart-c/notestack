@@ -1,6 +1,18 @@
 .ql-editor {
 	word-break: break-word;
 	white-space: normal;
+	max-height: 32rem;
+	scrollbar-width: thin;
+	scrollbar-color: var(--secondary-color) transparent;
+}
+
+.ql-editor::-webkit-scrollbar {
+	width: 6px;
+}
+
+.ql-editor::-webkit-scrollbar-thumb {
+	border-radius: 50px;
+	background-color: var(--secondary-color);
 }
 
 .ql-snow .ql-editor blockquote {
