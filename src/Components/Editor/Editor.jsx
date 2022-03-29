@@ -60,7 +60,7 @@ const Editor = () => {
 			/>
 			<div className={styles.colorContainer}>
 				<span>
-					<i className="fa-solid fa-palette"></i> Select background
+					<i className="fa-solid fa-palette"></i>
 				</span>
 				<select
 					name="select-color"
@@ -81,7 +81,7 @@ const Editor = () => {
 					className={` btn btn-primary ${styles.clearBtn}`}
 					onClick={() => setBgColor('gray')}
 				>
-					Clear Color
+					Clear
 				</button>
 			</div>
 			<button className={`btn btn-primary ${styles.btn}`} onClick={newNoteHandler}>
