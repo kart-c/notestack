@@ -17,7 +17,26 @@ const SingleNote = () => {
 	return (
 		<div className={styles.noteContainer}>
 			<article className={` ${styles.note} ${bgColorCheck(currentNote.bgColor)}`}>
-				<div className={styles.noteTitle}>{HtmlParser(currentNote.title)}</div>
+				<div className={styles.noteTitle}>
+					{HtmlParser(currentNote.title)}
+					<div className={styles.btnContainer}>
+						<button title="pin">
+							<i className="fa-solid fa-thumbtack"></i>
+						</button>
+						<button title="archive">
+							<i className="fa-solid fa-box-archive"></i>
+						</button>
+						<button title="trash">
+							<i className="fa-solid fa-trash-can"></i>
+						</button>
+					</div>
+				</div>
+				<small>{currentNote.date}</small>
+				<div className={`${styles.chipContainer} ${bgColorCheck(currentNote.bgColor)}`}>
+					<span className={styles.chip}>
+						Nature <i className="fas fa-times-circle"></i>
+					</span>
+				</div>
 				<div className={styles.noteContent}>{HtmlParser(currentNote.content)}</div>
 			</article>
 		</div>

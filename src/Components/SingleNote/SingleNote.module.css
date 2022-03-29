@@ -26,16 +26,31 @@
 	background-color: var(--secondary-color);
 }
 
+.noteTitle {
+	display: flex;
+	justify-content: space-between;
+}
+
+.btnContainer button {
+	font-size: 1.6rem;
+	background-color: transparent;
+	padding: 0 4px;
+}
+
+.btnContainer button:nth-of-type(2) {
+	margin: 0 8px;
+}
+
 .noteTitle > p {
 	font-size: 3rem;
 	font-weight: 700;
 	text-transform: uppercase;
-	margin-bottom: 1.6rem;
-	padding-bottom: 1.6rem;
 }
 
-.noteContent {
-	margin-top: 1.6rem;
+.noteContainer small {
+	font-size: 1.2rem;
+	display: block;
+	margin: 1.6rem 0;
 }
 
 .noteContent h1 {
@@ -65,4 +80,20 @@
 	padding: 5px 10px;
 	tab-size: 4;
 	border-radius: 3px;
+}
+
+.chipContainer {
+	align-items: center;
+	display: flex;
+	margin: 1.6rem 0;
+}
+
+.chip {
+	padding: 8px 10px;
+	border-radius: 20px;
+	font-size: 1.4rem;
+}
+
+.chip i {
+	display: inline-block;
 }
