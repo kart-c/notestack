@@ -14,8 +14,8 @@ export const titleModules = {
 
 export const contentModules = {
 	toolbar: [
-		[{ header: [2, 3, false] }],
-		['underline', 'italic', 'strike'],
+		[{ header: [1, 2, false] }],
+		['bold', 'underline', 'italic', 'strike'],
 		['blockquote', 'code-block'],
 	],
 };
