@@ -4,7 +4,7 @@
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
-	flex-shrink: 0;
+	flex-shrink: 0.1;
 }
 
 .asideBtnList {
@@ -50,10 +50,10 @@ button + .newLabelBtn {
 	display: block;
 	margin: 1.6rem auto 2.4rem;
 	color: var(--text-primary);
-	padding: 8px 1.2rem;
-	border-radius: 1.6rem;
+	padding: 8px 1.2rem 10px;
+	border-radius: 2.4rem;
 	font-size: 1.4rem;
-	width: 80%;
+	width: 65%;
 }
 
 .userProfile {
@@ -63,7 +63,7 @@ button + .newLabelBtn {
 	color: var(--black);
 	background-color: var(--text-primary);
 	border-radius: 3.2rem;
-	width: 80%;
+	width: 65%;
 	padding: 8px;
 	margin: auto auto 2.4rem;
 }
@@ -79,4 +79,6 @@ button + .newLabelBtn {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	font-size: 1.6rem;
+	font-weight: 700;
 }
