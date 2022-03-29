@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import { contentModules, titleModules } from './quill.module';
 import 'react-quill/dist/quill.snow.css';
@@ -8,9 +8,8 @@ import styles from './Editor.module.css';
 import './Quill.css';
 
 const Editor = () => {
-	const [noteTitle, setNoteTitle] = useState('');
-	const [noteContent, setNoteContent] = useState('');
-	const [bgColor, setBgColor] = useState('#232b4f');
+	const [newNote, setNewNote] = useState({ title: '', content: '' });
+	const [bgColor, setBgColor] = useState('');
 
 	const {
 		authState: { token },
@@ -19,8 +18,8 @@ const Editor = () => {
 	const { notesState, notesDispatch } = useNotes();
 
 	const newNoteHandler = async () => {
-		if (noteContent) {
-			const note = { noteTitle, noteContent, bgColor };
+		if (newNote.content) {
+			const note = { ...newNote, bgColor };
 			try {
 				const response = await addNewNote(note, token);
 				if (response.status === 201) {
@@ -41,20 +40,22 @@ const Editor = () => {
 			<h3 className={styles.editorTitle}>New Note Title</h3>
 			<ReactQuill
 				theme="snow"
-				value={noteTitle}
-				onChange={(e) => setNoteTitle(e)}
+				value={newNote.title}
+				onChange={(e) => setNewNote((prev) => ({ ...prev, title: e }))}
 				modules={titleModules}
 			/>
 			<h3 className={styles.editorTitle}>Content</h3>
 			<ReactQuill
 				style={{ backgroundColor: bgColor }}
 				theme="snow"
-				value={noteContent}
-				onChange={(e) => setNoteContent(e)}
+				value={newNote.content}
+				onChange={(e) => setNewNote((prev) => ({ ...prev, content: e }))}
 				modules={contentModules}
 			/>
 			<div className={styles.colorContainer}>
-				<span>Select background Color</span>
+				<span>
+					<i className="fa-solid fa-palette"></i> Select background
+				</span>
 				<div className="radio-container">
 					<input
 						type="radio"
