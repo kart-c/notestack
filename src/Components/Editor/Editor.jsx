@@ -19,15 +19,14 @@ const Editor = () => {
 	const { notesDispatch } = useNotes();
 
 	const newNoteHandler = async () => {
-		console.log(newNote.title);
 		if (newNote.content) {
 			const noteTitle = (title) =>
 				title === '<p><br></p>' || !title.length ? '<p>My Note</p>' : title;
 			const note = { ...newNote, title: noteTitle(newNote.title), bgColor };
-			console.log(note);
 			try {
 				const response = await addNewNote(note, token);
 				if (response.status === 201) {
+					setNewNote((prev) => ({ ...prev, title: '', content: '' }));
 					notesDispatch({ type: 'NEW_NOTE', payload: response.data.notes });
 				} else {
 					console.log('ERROR: ', response);
