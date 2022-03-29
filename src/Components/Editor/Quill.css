@@ -6,6 +6,10 @@
 	scrollbar-color: var(--secondary-color) transparent;
 }
 
+.ql-editor h1 {
+	line-height: 1.5;
+}
+
 .ql-editor::-webkit-scrollbar {
 	width: 6px;
 }
