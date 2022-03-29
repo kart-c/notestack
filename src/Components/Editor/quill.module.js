@@ -1,5 +1,5 @@
 export const titleModules = {
-	toolbar: [[{ header: [2, false] }], ['underline', 'italic']],
+	toolbar: [['underline', 'italic']],
 	keyboard: {
 		bindings: {
 			enter: {

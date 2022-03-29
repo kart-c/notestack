@@ -2,13 +2,15 @@
 	border-radius: 1.6rem;
 	height: 100%;
 	padding: 2.4rem;
+	margin-top: 2.4rem;
 }
 
 .heading {
-	display: inline-block;
 	position: relative;
-	width: fit-content;
 	font-size: 4rem;
+	text-align: center;
+	width: fit-content;
+	margin: auto;
 }
 
 .heading::after {
@@ -40,6 +42,7 @@
 	width: 3.2rem;
 	background-color: var(--grey);
 	margin-top: 1.1rem;
+	left: 0;
 }
 
 .headingLogo::after {
@@ -50,6 +53,7 @@
 	width: 3.2rem;
 	background-color: var(--grey);
 	margin-top: 2.3rem;
+	left: 0;
 }
 
 .heading span {
@@ -164,6 +168,9 @@ h3 > span.heroTextDesign {
 }
 
 @media only screen and (min-width: 768px) {
+	.main {
+		margin-top: 4rem;
+	}
 	.heading {
 		margin-left: 5.6rem;
 	}
@@ -171,7 +178,7 @@ h3 > span.heroTextDesign {
 	.heroContainer {
 		flex-direction: row;
 		align-items: center;
-		margin: 2.4rem 5.6rem 0;
+		margin: 0 5.6rem 0;
 	}
 
 	.heroImg {

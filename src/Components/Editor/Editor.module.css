@@ -9,24 +9,39 @@
 	margin: 1.6rem 0;
 }
 
+.editorTitle:first-of-type {
+	margin-top: 0;
+}
+
 .btn {
 	margin-top: 2.4rem;
+	border-radius: 1.6rem;
 }
 
 .colorContainer {
 	display: flex;
 	flex-wrap: wrap;
 	font-size: 1.6rem;
-	justify-content: space-between;
+	align-items: center;
 }
 
 .colorContainer > span {
-	display: block;
-	width: 100%;
 	margin: 1.6rem 0;
+}
+
+.colorContainer select {
+	margin: 0 1.6rem;
+	cursor: pointer;
+	padding: 4px 8px;
+	border-radius: 1.2rem;
 }
 
 .clearBtn {
 	background-color: transparent;
 	color: var(--text-primary);
+	padding: 0;
+}
+
+.quill {
+	color: var(--black);
 }

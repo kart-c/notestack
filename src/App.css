@@ -6,6 +6,12 @@
 	--white: #fff;
 	--body-bg-2: #242644;
 	--body-bg-3: #232b4f;
+	--note-green: #ccff90;
+	--note-red: #ff9d95;
+	--note-yellow: #fff475;
+	--note-blue: #cbf0f8;
+	--note-purple: #d7aefb;
+	--note-gray: #e8eaed;
 }
 
 /* iframe style was given to avoid the react overlay bug */
@@ -22,4 +28,28 @@ body {
 #root {
 	display: flex;
 	justify-content: center;
+}
+
+.note-green {
+	background-color: var(--note-green);
+}
+
+.note-red {
+	background-color: var(--note-red);
+}
+
+.note-yellow {
+	background-color: var(--note-yellow);
+}
+
+.note-blue {
+	background-color: var(--note-blue);
+}
+
+.note-purple {
+	background-color: var(--note-purple);
+}
+
+.note-gray {
+	background-color: var(--note-gray);
 }
