@@ -40,26 +40,6 @@
 	padding: 0;
 }
 
-.noteGreen {
-	background-color: var(--note-green);
-}
-
-.noteRed {
-	background-color: var(--note-red);
-}
-
-.noteYellow {
-	background-color: var(--note-yellow);
-}
-
-.noteBlue {
-	background-color: var(--note-blue);
-}
-
-.notePurple {
-	background-color: var(--note-purple);
-}
-
-.noteGray {
-	background-color: var(--note-gray);
+.quill {
+	color: var(--black);
 }

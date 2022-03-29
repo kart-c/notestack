@@ -4,6 +4,7 @@ import { contentModules, titleModules } from './quill.module';
 import 'react-quill/dist/quill.snow.css';
 import { addNewNote } from '../../Services';
 import { useAuth, useNotes } from '../../Context';
+import { bgColorCheck } from '../../Utils';
 import styles from './Editor.module.css';
 import './Quill.css';
 
@@ -20,6 +21,7 @@ const Editor = () => {
 	const newNoteHandler = async () => {
 		if (newNote.content) {
 			const note = { ...newNote, bgColor };
+			console.log(note);
 			try {
 				const response = await addNewNote(note, token);
 				if (response.status === 201) {
@@ -35,24 +37,11 @@ const Editor = () => {
 		}
 	};
 
-	const checkBg = (bgColor, styles) =>
-		bgColor === 'purple'
-			? styles.notePurple
-			: bgColor === 'red'
-			? styles.noteRed
-			: bgColor === 'yellow'
-			? styles.noteYellow
-			: bgColor === 'green'
-			? styles.noteYellow
-			: bgColor === 'blue'
-			? styles.noteBlue
-			: styles.noteGray;
-
 	return (
 		<section className={styles.editorSection}>
 			<h3 className={styles.editorTitle}>New Note Title</h3>
 			<ReactQuill
-				className={checkBg(bgColor, styles)}
+				className={`${styles.quill} ${bgColorCheck(bgColor)}`}
 				theme="snow"
 				value={newNote.title}
 				onChange={(e) => setNewNote((prev) => ({ ...prev, title: e }))}
@@ -60,7 +49,7 @@ const Editor = () => {
 			/>
 			<h3 className={styles.editorTitle}>Content</h3>
 			<ReactQuill
-				className={checkBg(bgColor, styles)}
+				className={`${styles.quill} ${bgColorCheck(bgColor)}`}
 				theme="snow"
 				value={newNote.content}
 				onChange={(e) => setNewNote((prev) => ({ ...prev, content: e }))}
