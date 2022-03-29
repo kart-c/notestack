@@ -19,8 +19,11 @@ const Editor = () => {
 	const { notesDispatch } = useNotes();
 
 	const newNoteHandler = async () => {
+		console.log(newNote.title);
 		if (newNote.content) {
-			const note = { ...newNote, bgColor };
+			const noteTitle = (title) =>
+				title === '<p><br></p>' || !title.length ? '<p>My Note</p>' : title;
+			const note = { ...newNote, title: noteTitle(newNote.title), bgColor };
 			console.log(note);
 			try {
 				const response = await addNewNote(note, token);

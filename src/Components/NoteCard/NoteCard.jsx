@@ -7,7 +7,7 @@ const NoteCard = ({ title, content, bgColor }) => {
 	return (
 		<article className={`card ${styles.card} ${bgColorCheck(bgColor)}`}>
 			<div className={`content ${styles.content}`}>
-				{title ? HtmlParser(title) : <p>My Note</p>}
+				{HtmlParser(title)}
 				{HtmlParser(content)}
 			</div>
 		</article>
