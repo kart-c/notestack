@@ -1,24 +1,49 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import { contentModules, titleModules } from './quill.module';
 import 'react-quill/dist/quill.snow.css';
-import { addNewNote } from '../../Services';
+import { addNewNote, editNote } from '../../Services';
 import { useAuth, useNotes } from '../../Context';
 import { bgColorCheck } from '../../Utils';
 import styles from './Editor.module.css';
 import './Quill.css';
+import { useParams } from 'react-router-dom';
 
-const Editor = () => {
-	const [newNote, setNewNote] = useState({ title: '', content: '' });
-	const [bgColor, setBgColor] = useState('Gray');
+const Editor = ({ title = '', content = '', bgCard = '', setIsEditable }) => {
+	const [newNote, setNewNote] = useState({ title, content });
+	const [bgColor, setBgColor] = useState(bgCard);
+	const [loading, setLoading] = useState(false);
 
 	const {
 		authState: { token },
 	} = useAuth();
 
-	const { notesDispatch } = useNotes();
+	const { notesState, notesDispatch } = useNotes();
+
+	const params = useParams();
+
+	const currentNote = notesState.notes.find((note) => note._id === params._id);
+
+	const updateCardHandler = async () => {
+		const date = new Date().toLocaleString();
+		const note = { ...newNote, bgColor, date };
+		setLoading(true);
+		try {
+			const response = await editNote(note, token, currentNote._id);
+			if (response.status === 201) {
+				notesDispatch({ type: 'UPDATE_NOTE', payload: response.data.notes });
+				setLoading(false);
+				setIsEditable(false);
+			} else {
+				console.log('ERROR: ', response);
+			}
+		} catch (error) {
+			console.log('ERROR: ', error);
+		}
+	};
 
 	const newNoteHandler = async () => {
+		setLoading(false);
 		const date = new Date().toLocaleString();
 		if (newNote.content) {
 			const noteTitle = (title) =>
@@ -29,6 +54,7 @@ const Editor = () => {
 				if (response.status === 201) {
 					setNewNote((prev) => ({ ...prev, title: '', content: '' }));
 					notesDispatch({ type: 'NEW_NOTE', payload: response.data.notes });
+					setLoading(true);
 				} else {
 					console.log('ERROR: ', response);
 				}
@@ -84,7 +110,11 @@ const Editor = () => {
 					Clear
 				</button>
 			</div>
-			<button className={`btn btn-primary ${styles.btn}`} onClick={newNoteHandler}>
+			<button
+				className={`btn btn-primary ${styles.btn}`}
+				onClick={title && content ? updateCardHandler : newNoteHandler}
+				disabled={loading}
+			>
 				Submit
 			</button>
 		</section>
