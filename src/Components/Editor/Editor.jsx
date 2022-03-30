@@ -43,7 +43,7 @@ const Editor = ({ title = '', content = '', bgCard = '', setIsEditable }) => {
 	};
 
 	const newNoteHandler = async () => {
-		setLoading(false);
+		setLoading(true);
 		const date = new Date().toLocaleString();
 		if (newNote.content) {
 			const noteTitle = (title) =>
@@ -54,7 +54,7 @@ const Editor = ({ title = '', content = '', bgCard = '', setIsEditable }) => {
 				if (response.status === 201) {
 					setNewNote((prev) => ({ ...prev, title: '', content: '' }));
 					notesDispatch({ type: 'NEW_NOTE', payload: response.data.notes });
-					setLoading(true);
+					setLoading(false);
 				} else {
 					console.log('ERROR: ', response);
 				}
