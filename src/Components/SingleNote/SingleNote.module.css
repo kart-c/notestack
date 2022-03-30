@@ -34,11 +34,15 @@
 .btnContainer button {
 	font-size: 1.6rem;
 	background-color: transparent;
-	padding: 0 4px;
+	padding: 6px;
 }
 
-.btnContainer button:nth-of-type(2) {
-	margin: 0 8px;
+.editBtn {
+	margin-right: 10px;
+}
+
+.btnContainer button:nth-of-type(3) {
+	margin: 0 10px;
 }
 
 .noteTitle > p {
