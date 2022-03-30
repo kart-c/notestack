@@ -16,7 +16,8 @@
 	padding-top: 0;
 }
 
-.asideBtnList button {
+/* .asideBtnList button, */
+.asideBtnList a {
 	background-color: transparent;
 	display: block;
 	padding: 8px;
@@ -29,7 +30,7 @@
 	padding-top: 0;
 }
 
-button.active {
+a.active {
 	color: var(--secondary-color);
 }
 
@@ -45,7 +46,7 @@ button.active {
 	background-color: var(--primary-color);
 }
 
-button + .newLabelBtn {
+a + .newLabelBtn {
 	background-color: var(--primary-color);
 	display: block;
 	margin: 1.6rem auto 2.4rem;

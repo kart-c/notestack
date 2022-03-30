@@ -1,38 +1,39 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Aside.module.css';
 
 const Aside = () => {
 	return (
 		<aside className={styles.aside}>
 			<div className={styles.asideBtnList}>
-				<button className={styles.active}>
+				<Link to="/home" className={styles.active}>
 					<i className="fa-solid fa-clipboard"></i> All notes
-				</button>
+				</Link>
 				<div className={styles.spacer}></div>
-				<button>
+				<Link to="/home">
 					<i className="fa-solid fa-note-sticky"></i> Nature
-				</button>
-				<button>
+				</Link>
+				<Link to="/home">
 					<i className="fa-solid fa-note-sticky"></i> Movies
-				</button>
-				<button>
+				</Link>
+				<Link to="/home">
 					<i className="fa-solid fa-note-sticky"></i> Future
-				</button>
-				<button>
+				</Link>
+				<Link to="/home">
 					<i className="fa-solid fa-note-sticky"></i> Work
-				</button>
+				</Link>
 				<button className={`btn btn-primary ${styles.newLabelBtn}`}>
 					<i className="fa-solid fa-circle-plus"></i> Add Label
 				</button>
 				<div className={styles.spacer}></div>
 			</div>
 			<div className={styles.asideBtnList}>
-				<button>
+				<Link to="/archive">
 					<i className="fa-solid fa-box-archive"></i> Archive
-				</button>
-				<button>
+				</Link>
+				<Link to="/home">
 					<i className="fa-solid fa-trash-can"></i> Trash
-				</button>
+				</Link>
 			</div>
 			<div className={styles.userProfile}>
 				<img src="https://picsum.photos/100" alt="user avatar" className="avatar avatar-sm" />
