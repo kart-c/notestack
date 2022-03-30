@@ -4,6 +4,9 @@ export const notesReducer = (state, action) => {
 		case 'NEW_NOTE':
 			return { ...state, notes: payload };
 
+		case 'UPDATE_NOTE':
+			return { ...state, notes: payload };
+
 		default:
 			throw new Error('NO CASE DEFINED IN NOTES REDUCER');
 	}
