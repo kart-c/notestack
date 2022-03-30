@@ -19,15 +19,15 @@ const Editor = () => {
 	const { notesDispatch } = useNotes();
 
 	const newNoteHandler = async () => {
-		console.log(newNote.title);
+		const date = new Date().toLocaleString();
 		if (newNote.content) {
 			const noteTitle = (title) =>
 				title === '<p><br></p>' || !title.length ? '<p>My Note</p>' : title;
-			const note = { ...newNote, title: noteTitle(newNote.title), bgColor };
-			console.log(note);
+			const note = { ...newNote, title: noteTitle(newNote.title), bgColor, date };
 			try {
 				const response = await addNewNote(note, token);
 				if (response.status === 201) {
+					setNewNote((prev) => ({ ...prev, title: '', content: '' }));
 					notesDispatch({ type: 'NEW_NOTE', payload: response.data.notes });
 				} else {
 					console.log('ERROR: ', response);
@@ -60,7 +60,7 @@ const Editor = () => {
 			/>
 			<div className={styles.colorContainer}>
 				<span>
-					<i className="fa-solid fa-palette"></i> Select background
+					<i className="fa-solid fa-palette"></i>
 				</span>
 				<select
 					name="select-color"
@@ -81,7 +81,7 @@ const Editor = () => {
 					className={` btn btn-primary ${styles.clearBtn}`}
 					onClick={() => setBgColor('gray')}
 				>
-					Clear Color
+					Clear
 				</button>
 			</div>
 			<button className={`btn btn-primary ${styles.btn}`} onClick={newNoteHandler}>

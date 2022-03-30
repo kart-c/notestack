@@ -1,0 +1,99 @@
+.noteContainer {
+	margin: 1.6rem;
+	background-color: var(--body-bg-3);
+	flex-grow: 1;
+	padding: 1.6rem;
+	color: var(--black);
+	border-radius: 10px;
+	max-height: calc(100vh - 6.4rem);
+}
+
+.note {
+	padding: 1.6rem;
+	border-radius: 10px;
+	max-height: calc(100vh - 9.6rem);
+	overflow: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--secondary-color) transparent;
+}
+
+.note::-webkit-scrollbar {
+	width: 6px;
+}
+
+.note::-webkit-scrollbar-thumb {
+	border-radius: 50px;
+	background-color: var(--secondary-color);
+}
+
+.noteTitle {
+	display: flex;
+	justify-content: space-between;
+}
+
+.btnContainer button {
+	font-size: 1.6rem;
+	background-color: transparent;
+	padding: 0 4px;
+}
+
+.btnContainer button:nth-of-type(2) {
+	margin: 0 8px;
+}
+
+.noteTitle > p {
+	font-size: 3rem;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.noteContainer small {
+	font-size: 1.2rem;
+	display: block;
+	margin: 1.6rem 0;
+}
+
+.noteContent h1 {
+	font-size: 2.6rem;
+	line-height: 1.5;
+}
+
+.noteContent h2 {
+	font-size: 2rem;
+}
+
+.noteContent blockquote {
+	font-size: 1.4rem;
+	padding-left: 1.6rem;
+	border-left: 4px solid #cccccc;
+	margin: 5px 0;
+	margin-block-start: 5px;
+	margin-block-end: 5px;
+}
+
+.noteContent pre {
+	box-sizing: border-box;
+	background-color: #23241f;
+	color: var(--text-primary);
+	font-size: 1.3rem;
+	margin: 5px 0;
+	padding: 5px 10px;
+	tab-size: 4;
+	border-radius: 3px;
+}
+
+.chipContainer {
+	align-items: center;
+	display: flex;
+	margin: 1.6rem 0;
+}
+
+.chip {
+	padding: 8px 10px;
+	border-radius: 20px;
+	font-size: 1.4rem;
+}
+
+.chip i {
+	display: inline-block;
+}
