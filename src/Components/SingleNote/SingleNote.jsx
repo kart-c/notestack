@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
-import { useParams } from 'react-router-dom';
-import { useNotes } from '../../Context';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useArchive, useAuth, useNotes } from '../../Context';
+import { archiveNote } from '../../Services';
 import { bgColorCheck } from '../../Utils';
 import { Editor } from '../Editor/Editor';
 import styles from './SingleNote.module.css';
@@ -11,15 +12,39 @@ const SingleNote = () => {
 
 	const {
 		notesState: { notes },
+		notesDispatch,
 	} = useNotes();
 
 	const params = useParams();
 
+	const navigate = useNavigate();
+
+	const {
+		authState: { token },
+	} = useAuth();
+
+	const { archiveState, archiveDispatch } = useArchive();
 	useEffect(() => {
 		setIsEditable(false);
 	}, [params._id]);
 
 	const currentNote = notes.find((note) => note._id === params._id);
+
+	const archiveHandler = async () => {
+		try {
+			const response = await archiveNote(currentNote, token, currentNote._id);
+			if (response.status === 201) {
+				navigate('/home');
+				console.log(response);
+				notesDispatch({ type: 'ARCHIVE_NOTE', payload: response.data.notes });
+				archiveDispatch({ type: 'ADD_TO_ARCHIVE', payload: response.data.archives });
+			} else {
+				console.error('ERROR: ', response);
+			}
+		} catch (error) {
+			console.error('ERROR: ', error);
+		}
+	};
 
 	return (
 		<>
@@ -42,7 +67,7 @@ const SingleNote = () => {
 								<button title="pin">
 									<i className="fa-solid fa-thumbtack"></i>
 								</button>
-								<button title="archive">
+								<button title="archive" onClick={archiveHandler}>
 									<i className="fa-solid fa-box-archive"></i>
 								</button>
 								<button title="trash">
