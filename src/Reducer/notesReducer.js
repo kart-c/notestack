@@ -10,6 +10,9 @@ export const notesReducer = (state, action) => {
 		case 'ARCHIVE_NOTE':
 			return { ...state, notes: payload };
 
+		case 'UNARCHIVE_NOTE':
+			return { ...state, notes: payload };
+
 		default:
 			throw new Error('NO CASE DEFINED IN NOTES REDUCER');
 	}

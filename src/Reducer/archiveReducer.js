@@ -3,6 +3,9 @@ export const archiveReducer = (state, { type, payload }) => {
 		case 'ADD_TO_ARCHIVE':
 			return { ...state, archives: payload };
 
+		case 'REMOVE_FROM_ARCHIVE':
+			return { ...state, archives: payload };
+
 		default:
 			throw new Error('NO CASE DEFINED IN ARCHIVE REDUCER');
 	}
