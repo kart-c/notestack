@@ -1,16 +1,13 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { bgColorCheck } from '../../Utils';
 import styles from './NoteCard.module.css';
 
 const NoteCard = ({ title, content, bgColor, _id }) => {
+	const [currPage, setCurrPage] = useState();
+
 	const navigate = useNavigate();
-
-	const parsedContent = HtmlParser(content);
-
-	const arrayOfContent = parsedContent.map((content) => [...content.props.children]);
-	const newContent = arrayOfContent.flat();
 
 	return (
 		<article
@@ -19,7 +16,7 @@ const NoteCard = ({ title, content, bgColor, _id }) => {
 		>
 			<div className={`content ${styles.contentContainer}`}>
 				<div className={styles.title}>{HtmlParser(title)}</div>
-				<div className={styles.content}>{newContent.join(' ')}</div>
+				<div className={styles.content}>{HtmlParser(content)}</div>
 			</div>
 		</article>
 	);
