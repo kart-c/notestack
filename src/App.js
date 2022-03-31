@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { Home, Landing, SingleNotePage, Archive } from './Pages';
+import { Home, Landing, Archive } from './Pages';
 import Mockman from 'mockman-js';
-import { ArchiveNote, Aside, LabelNotes } from './Components';
+import { Aside, LabelNotes, SingleNote } from './Components';
 import './App.css';
 
 function App() {
@@ -19,9 +19,9 @@ function App() {
 				<Route path="/" element={<Landing />} />
 				<Route path="/home" element={<Home />} />
 				<Route path="/mock" element={<Mockman />} />
-				<Route path="/home/:_id" element={<SingleNotePage />} />
+				<Route path="/home/:_id" element={<SingleNote />} />
 				<Route path="/archive" element={<Archive />} />
-				<Route path="/archive/:_id" element={<ArchiveNote />} />
+				<Route path="/archive/:_id" element={<SingleNote />} />
 			</Routes>
 		</>
 	);

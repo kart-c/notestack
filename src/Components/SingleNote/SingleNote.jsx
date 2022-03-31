@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useArchive, useAuth, useNotes } from '../../Context';
 import { archiveNote } from '../../Services';
 import { bgColorCheck } from '../../Utils';
@@ -19,16 +19,26 @@ const SingleNote = () => {
 
 	const navigate = useNavigate();
 
+	const location = useLocation();
+
 	const {
 		authState: { token },
 	} = useAuth();
 
-	const { archiveState, archiveDispatch } = useArchive();
+	const {
+		archiveState: { archives },
+		archiveDispatch,
+	} = useArchive();
+
 	useEffect(() => {
 		setIsEditable(false);
 	}, [params._id]);
 
 	const currentNote = notes.find((note) => note._id === params._id);
+
+	const archivedNote = archives.find((archive) => archive._id === params._id);
+
+	const checkCurrPage = () => (location.pathname.includes('home') ? currentNote : archivedNote);
 
 	const archiveHandler = async () => {
 		try {
@@ -57,17 +67,28 @@ const SingleNote = () => {
 				/>
 			) : (
 				<div className={styles.noteContainer}>
-					<article className={` ${styles.note} ${bgColorCheck(currentNote.bgColor)}`}>
+					<article className={` ${styles.note} ${bgColorCheck(checkCurrPage().bgColor)}`}>
 						<div className={styles.noteTitle}>
-							{HtmlParser(currentNote.title)}
+							{HtmlParser(checkCurrPage().title)}
 							<div className={styles.btnContainer}>
-								<button title="edit" className={styles.editBtn} onClick={() => setIsEditable(true)}>
-									<i className="fa-solid fa-pen-to-square"></i>
-								</button>
-								<button title="pin">
-									<i className="fa-solid fa-thumbtack"></i>
-								</button>
-								<button title="archive" onClick={archiveHandler}>
+								{location.pathname.includes('home') ? (
+									<button
+										title="edit"
+										className={styles.editBtn}
+										onClick={() => setIsEditable(true)}
+									>
+										<i className="fa-solid fa-pen-to-square"></i>
+									</button>
+								) : null}
+								{location.pathname.includes('home') ? (
+									<button title="pin">
+										<i className="fa-solid fa-thumbtack"></i>
+									</button>
+								) : null}
+								<button
+									title={location.pathname.includes('home') ? 'archive' : 'unarchive'}
+									onClick={archiveHandler}
+								>
 									<i className="fa-solid fa-box-archive"></i>
 								</button>
 								<button title="trash">
@@ -75,13 +96,13 @@ const SingleNote = () => {
 								</button>
 							</div>
 						</div>
-						<small>{currentNote.date}</small>
-						<div className={`${styles.chipContainer} ${bgColorCheck(currentNote.bgColor)}`}>
+						<small>{checkCurrPage().date}</small>
+						<div className={`${styles.chipContainer} ${bgColorCheck(checkCurrPage().bgColor)}`}>
 							<span className={styles.chip}>
 								Nature <i className="fas fa-times-circle"></i>
 							</span>
 						</div>
-						<div className={styles.noteContent}>{HtmlParser(currentNote.content)}</div>
+						<div className={styles.noteContent}>{HtmlParser(checkCurrPage().content)}</div>
 					</article>
 				</div>
 			)}
