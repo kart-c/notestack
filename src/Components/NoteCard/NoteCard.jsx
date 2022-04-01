@@ -12,13 +12,17 @@ const NoteCard = ({ title, content, bgColor, _id }) => {
 	const location = useLocation();
 
 	useEffect(() => {
-		location.pathname.includes('home') ? setCurrPage('home') : setCurrPage('archive');
+		location.pathname.includes('home')
+			? setCurrPage('home')
+			: location.pathname.includes('archive')
+			? setCurrPage('archive')
+			: setCurrPage('trash');
 	});
 
 	return (
 		<article
 			className={`card ${styles.card} ${bgColorCheck(bgColor)}`}
-			onClick={() => (currPage === 'home' ? navigate(`/home/${_id}`) : navigate(`/archive/${_id}`))}
+			onClick={() => navigate(`/${currPage}/${_id}`)}
 		>
 			<div className={`content ${styles.contentContainer}`}>
 				<div className={styles.title}>{HtmlParser(title)}</div>
