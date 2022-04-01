@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useArchive, useAuth, useNotes } from '../../Context';
-import { archiveNote, unarchiveNote } from '../../Services';
+import { useArchive, useAuth, useNotes, useTrash } from '../../Context';
+import { archiveNote, deleteNote, unarchiveNote } from '../../Services';
 import { bgColorCheck } from '../../Utils';
 import { Editor } from '../Editor/Editor';
 import styles from './SingleNote.module.css';
@@ -20,6 +20,8 @@ const SingleNote = () => {
 	const navigate = useNavigate();
 
 	const location = useLocation();
+
+	const { trashState, trashDispatch } = useTrash();
 
 	const {
 		authState: { token },
@@ -70,6 +72,20 @@ const SingleNote = () => {
 		}
 	};
 
+	const trashHandler = async () => {
+		try {
+			const response = await deleteNote(currentNote._id, token);
+			if (response.status === 200) {
+				navigate('/home');
+				trashDispatch({ type: 'ADD_TO_TRASH', payload: currentNote });
+				notesDispatch({ type: 'ADD_TO_TRASH', payload: response.data.notes });
+			}
+			console.log(response);
+		} catch (error) {
+			console.error('ERROR: ', error);
+		}
+	};
+
 	return (
 		<>
 			{isEditable ? (
@@ -105,7 +121,10 @@ const SingleNote = () => {
 								>
 									<i className="fa-solid fa-box-archive"></i>
 								</button>
-								<button title="trash">
+								<button
+									title="trash"
+									onClick={location.pathname.includes('home') ? trashHandler : null}
+								>
 									<i className="fa-solid fa-trash-can"></i>
 								</button>
 							</div>
