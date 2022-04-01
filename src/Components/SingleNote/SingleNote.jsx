@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useArchive, useAuth, useNotes, useTrash } from '../../Context';
-import { archiveNote, deleteNote, unarchiveNote } from '../../Services';
+import { addNewNote, archiveNote, deleteNote, unarchiveNote } from '../../Services';
 import { bgColorCheck } from '../../Utils';
 import { Editor } from '../Editor/Editor';
 import styles from './SingleNote.module.css';
@@ -40,7 +40,14 @@ const SingleNote = () => {
 
 	const archivedNote = archives.find((archive) => archive._id === params._id);
 
-	const checkCurrPage = () => (location.pathname.includes('home') ? currentNote : archivedNote);
+	const trashedNote = trashState.trash.find((trash) => trash._id === params._id);
+
+	const checkCurrPage = () =>
+		location.pathname.includes('home')
+			? currentNote
+			: location.pathname.includes('archive')
+			? archivedNote
+			: trashedNote;
 
 	const archiveHandler = async () => {
 		try {
@@ -79,8 +86,24 @@ const SingleNote = () => {
 				navigate('/home');
 				trashDispatch({ type: 'ADD_TO_TRASH', payload: currentNote });
 				notesDispatch({ type: 'ADD_TO_TRASH', payload: response.data.notes });
+			} else {
+				console.error('ERROR: ', response);
 			}
-			console.log(response);
+		} catch (error) {
+			console.error('ERROR: ', error);
+		}
+	};
+
+	const restoreNoteHandler = async () => {
+		try {
+			const response = await addNewNote(trashedNote, token);
+			if (response.status === 201) {
+				navigate('/trash');
+				trashDispatch({ type: 'REMOVE_FROM_TRASH', payload: trashedNote._id });
+				notesDispatch({ type: 'REMOVE_FROM_TRASH', payload: response.data.notes });
+			} else {
+				console.error('ERROR: ', response);
+			}
 		} catch (error) {
 			console.error('ERROR: ', error);
 		}
@@ -115,12 +138,20 @@ const SingleNote = () => {
 										<i className="fa-solid fa-thumbtack"></i>
 									</button>
 								) : null}
-								<button
-									title={location.pathname.includes('home') ? 'archive' : 'unarchive'}
-									onClick={location.pathname.includes('home') ? archiveHandler : unarchiveHandler}
-								>
-									<i className="fa-solid fa-box-archive"></i>
-								</button>
+
+								{location.pathname.includes('trash') ? null : (
+									<button
+										title={location.pathname.includes('home') ? 'archive' : 'unarchive'}
+										onClick={location.pathname.includes('home') ? archiveHandler : unarchiveHandler}
+									>
+										<i className="fa-solid fa-box-archive"></i>
+									</button>
+								)}
+								{location.pathname.includes('trash') ? (
+									<button onClick={restoreNoteHandler}>
+										<i className="fa-solid fa-rotate-left"></i>
+									</button>
+								) : null}
 								<button
 									title="trash"
 									onClick={location.pathname.includes('home') ? trashHandler : null}
