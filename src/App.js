@@ -23,6 +23,7 @@ function App() {
 				<Route path="/archive" element={<Archive />} />
 				<Route path="/archive/:_id" element={<SingleNote />} />
 				<Route path="/trash" element={<Trash />} />
+				<Route path="/trash/:_id" element={<SingleNote />} />
 			</Routes>
 		</>
 	);
