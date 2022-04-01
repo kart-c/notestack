@@ -1,0 +1,9 @@
+.trashContainer {
+	margin: 1.6rem;
+	background-color: var(--body-bg-3);
+	flex-grow: 1;
+	padding: 1.6rem;
+	color: var(--black);
+	border-radius: 10px;
+	max-height: calc(100vh - 6.4rem);
+}
