@@ -27,38 +27,42 @@ const Editor = ({ title = '', content = '', bgCard = '', setIsEditable }) => {
 	const updateCardHandler = async () => {
 		const date = new Date().toLocaleString();
 		const note = { ...newNote, bgColor, date };
-		setLoading(true);
 		try {
+			setLoading(true);
 			const response = await editNote(note, token, currentNote._id);
 			if (response.status === 201) {
 				notesDispatch({ type: 'UPDATE_NOTE', payload: response.data.notes });
 				setLoading(false);
 				setIsEditable(false);
 			} else {
+				setLoading(false);
 				console.log('ERROR: ', response);
 			}
 		} catch (error) {
+			setLoading(false);
 			console.log('ERROR: ', error);
 		}
 	};
 
 	const newNoteHandler = async () => {
-		setLoading(false);
 		const date = new Date().toLocaleString();
 		if (newNote.content) {
 			const noteTitle = (title) =>
 				title === '<p><br></p>' || !title.length ? '<p>My Note</p>' : title;
 			const note = { ...newNote, title: noteTitle(newNote.title), bgColor, date };
 			try {
+				setLoading(true);
 				const response = await addNewNote(note, token);
 				if (response.status === 201) {
 					setNewNote((prev) => ({ ...prev, title: '', content: '' }));
 					notesDispatch({ type: 'NEW_NOTE', payload: response.data.notes });
-					setLoading(true);
+					setLoading(false);
 				} else {
+					setLoading(false);
 					console.log('ERROR: ', response);
 				}
 			} catch (error) {
+				setLoading(false);
 				console.error('ERROR: ', error);
 			}
 		} else {

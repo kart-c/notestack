@@ -36,18 +36,8 @@
 	overflow: hidden;
 }
 
-.content h1 {
+.content * {
+	display: inline-block;
 	font-size: 1.2rem;
 	font-weight: 400;
-}
-
-.content {
-	font-weight: 400;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	border: 0;
-	padding: 0;
 }

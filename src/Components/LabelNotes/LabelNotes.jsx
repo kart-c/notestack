@@ -1,12 +1,21 @@
 import React from 'react';
-import { useNotes } from '../../Context';
+import { useLocation } from 'react-router-dom';
+import { useArchive, useNotes } from '../../Context';
 import { NoteCard } from '../NoteCard/NoteCard';
 import styles from './LabelNotes.module.css';
 
 const LabelNotes = () => {
+	const location = useLocation();
+
 	const {
 		notesState: { notes },
 	} = useNotes();
+
+	const {
+		archiveState: { archives },
+	} = useArchive();
+
+	const checkCurrPage = () => (location.pathname.includes('home') ? notes : archives);
 
 	return (
 		<div className={styles.labelNotes}>
@@ -24,7 +33,9 @@ const LabelNotes = () => {
 					<label htmlFor="last">Last First</label>
 				</div>
 			</div>
-			{notes.length > 0 ? notes.map((note) => <NoteCard key={note._id} {...note} />) : null}
+			{checkCurrPage().length > 0
+				? checkCurrPage().map((note) => <NoteCard key={note._id} {...note} />)
+				: null}
 		</div>
 	);
 };
