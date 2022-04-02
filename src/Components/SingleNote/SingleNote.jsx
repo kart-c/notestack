@@ -99,14 +99,19 @@ const SingleNote = () => {
 			const response = await addNewNote(trashedNote, token);
 			if (response.status === 201) {
 				navigate('/trash');
-				trashDispatch({ type: 'REMOVE_FROM_TRASH', payload: trashedNote._id });
-				notesDispatch({ type: 'REMOVE_FROM_TRASH', payload: response.data.notes });
+				trashDispatch({ type: 'RESTORE_FROM_TRASH', payload: trashedNote._id });
+				notesDispatch({ type: 'RESTORE_FROM_TRASH', payload: response.data.notes });
 			} else {
 				console.error('ERROR: ', response);
 			}
 		} catch (error) {
 			console.error('ERROR: ', error);
 		}
+	};
+
+	const deleteHandler = () => {
+		trashDispatch({ type: 'DELETE_FROM_TRASH', payload: trashedNote._id });
+		navigate('/trash');
 	};
 
 	return (
@@ -153,10 +158,14 @@ const SingleNote = () => {
 									</button>
 								) : null}
 								<button
-									title="trash"
-									onClick={location.pathname.includes('home') ? trashHandler : null}
+									title={location.pathname.includes('trash') ? 'DELETE' : 'trash'}
+									onClick={location.pathname.includes('trash') ? deleteHandler : trashHandler}
 								>
-									<i className="fa-solid fa-trash-can"></i>
+									<i
+										className={`fa-solid fa-trash-can ${
+											location.pathname.includes('trash') ? styles.trash : null
+										}`}
+									></i>
 								</button>
 							</div>
 						</div>
