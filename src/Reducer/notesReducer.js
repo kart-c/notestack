@@ -16,7 +16,7 @@ export const notesReducer = (state, action) => {
 		case 'ADD_TO_TRASH':
 			return { ...state, notes: payload };
 
-		case 'REMOVE_FROM_TRASH':
+		case 'RESTORE_FROM_TRASH':
 			return { ...state, notes: payload };
 
 		default:
