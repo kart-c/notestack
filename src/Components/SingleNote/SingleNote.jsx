@@ -2,31 +2,24 @@ import { useState, useEffect } from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useArchive, useAuth, useNotes, useTrash } from '../../Context';
-import { addNewNote, archiveNote, deleteNote, unarchiveNote } from '../../Services';
+import { addNewNote, archiveDelete, archiveNote, deleteNote, unarchiveNote } from '../../Services';
 import { bgColorCheck } from '../../Utils';
 import { Editor } from '../Editor/Editor';
 import styles from './SingleNote.module.css';
 
 const SingleNote = () => {
 	const [isEditable, setIsEditable] = useState(false);
-
+	const params = useParams();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const { trashState, trashDispatch } = useTrash();
 	const {
 		notesState: { notes },
 		notesDispatch,
 	} = useNotes();
-
-	const params = useParams();
-
-	const navigate = useNavigate();
-
-	const location = useLocation();
-
-	const { trashState, trashDispatch } = useTrash();
-
 	const {
 		authState: { token },
 	} = useAuth();
-
 	const {
 		archiveState: { archives },
 		archiveDispatch,
@@ -81,17 +74,33 @@ const SingleNote = () => {
 
 	const trashHandler = async () => {
 		const note = location.pathname.includes('home') ? currentNote : archivedNote;
-		try {
-			const response = await deleteNote(note._id, token);
-			if (response.status === 200) {
-				navigate(-1);
-				trashDispatch({ type: 'ADD_TO_TRASH', payload: note });
-				notesDispatch({ type: 'ADD_TO_TRASH', payload: response.data.notes });
-			} else {
-				console.error('ERROR: ', response);
+		if (note === currentNote) {
+			try {
+				const response = await deleteNote(note._id, token);
+				if (response.status === 200) {
+					setIsEditable(true);
+					navigate('/home');
+					notesDispatch({ type: 'ADD_TO_TRASH', payload: response.data.notes });
+					trashDispatch({ type: 'ADD_TO_TRASH', payload: note });
+				} else {
+					console.error('ERROR: ', response);
+				}
+			} catch (error) {
+				console.error('ERROR: ', error);
 			}
-		} catch (error) {
-			console.error('ERROR: ', error);
+		} else {
+			try {
+				const response = await archiveDelete(token, note._id);
+				if (response.status === 200) {
+					navigate('/archive');
+					archiveDispatch({ type: 'REMOVE_FROM_ARCHIVE', payload: response.data.archives });
+					trashDispatch({ type: 'ADD_TO_TRASH', payload: note });
+				} else {
+					console.error('ERROR: ', response);
+				}
+			} catch (error) {
+				console.error('ERROR: ', error);
+			}
 		}
 	};
 
@@ -119,14 +128,14 @@ const SingleNote = () => {
 		<>
 			{isEditable ? (
 				<Editor
-					title={currentNote.title}
-					content={currentNote.content}
-					bgCard={currentNote.bgColor}
 					setIsEditable={setIsEditable}
+					title={currentNote && currentNote.title}
+					content={currentNote && currentNote.content}
+					bgCard={currentNote && currentNote.bgColor}
 				/>
 			) : (
 				<div className={styles.noteContainer}>
-					<article className={` ${styles.note} ${bgColorCheck(checkCurrPage().bgColor)}`}>
+					<article className={` ${styles.note}  ${bgColorCheck(checkCurrPage().bgColor)}`}>
 						<div className={styles.noteTitle}>
 							{HtmlParser(checkCurrPage().title)}
 							<div className={styles.btnContainer}>
