@@ -80,11 +80,12 @@ const SingleNote = () => {
 	};
 
 	const trashHandler = async () => {
+		const note = location.pathname.includes('home') ? currentNote : archivedNote;
 		try {
-			const response = await deleteNote(currentNote._id, token);
+			const response = await deleteNote(note._id, token);
 			if (response.status === 200) {
-				navigate('/home');
-				trashDispatch({ type: 'ADD_TO_TRASH', payload: currentNote });
+				navigate(-1);
+				trashDispatch({ type: 'ADD_TO_TRASH', payload: note });
 				notesDispatch({ type: 'ADD_TO_TRASH', payload: response.data.notes });
 			} else {
 				console.error('ERROR: ', response);
