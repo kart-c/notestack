@@ -55,6 +55,7 @@ const Editor = ({ title = '', content = '', bgCard = '', setIsEditable }) => {
 				const response = await addNewNote(note, token);
 				if (response.status === 201) {
 					setNewNote((prev) => ({ ...prev, title: '', content: '' }));
+					setBgColor('');
 					notesDispatch({ type: 'NEW_NOTE', payload: response.data.notes });
 					setLoading(false);
 				} else {
