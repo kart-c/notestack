@@ -74,31 +74,3 @@ a.active {
 	font-size: 1.6rem;
 	font-weight: 700;
 }
-
-.labelModal {
-	border-radius: 8px;
-	padding: 1.6rem;
-	background-color: var(--body-bg);
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 5;
-}
-
-.labelModal label {
-	font-size: 1.4rem;
-	margin-bottom: 1.2rem;
-}
-
-.labelModal input {
-	box-sizing: border-box;
-	border-radius: 8px;
-}
-
-.labelModal button {
-	display: block;
-	margin: 1.6rem 0 0 auto;
-	font-size: 1.4rem;
-	padding: 8px 1.2rem;
-}
