@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { useArchive, useNotes } from '../../Context';
+import { useArchive, useNotes, useTrash } from '../../Context';
 import { NoteCard } from '../NoteCard/NoteCard';
 import styles from './LabelNotes.module.css';
 
@@ -15,7 +15,16 @@ const LabelNotes = () => {
 		archiveState: { archives },
 	} = useArchive();
 
-	const checkCurrPage = () => (location.pathname.includes('home') ? notes : archives);
+	const {
+		trashState: { trash },
+	} = useTrash();
+
+	const checkCurrPage = () =>
+		location.pathname.includes('home')
+			? notes
+			: location.pathname.includes('archive')
+			? archives
+			: trash;
 
 	return (
 		<div className={styles.labelNotes}>

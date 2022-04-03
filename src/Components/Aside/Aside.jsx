@@ -31,7 +31,7 @@ const Aside = () => {
 				<Link to="/archive">
 					<i className="fa-solid fa-box-archive"></i> Archive
 				</Link>
-				<Link to="/home">
+				<Link to="/trash">
 					<i className="fa-solid fa-trash-can"></i> Trash
 				</Link>
 			</div>

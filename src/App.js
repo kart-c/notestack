@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { Home, Landing, Archive } from './Pages';
+import { Home, Landing, Archive, Trash } from './Pages';
 import Mockman from 'mockman-js';
 import { Aside, LabelNotes, SingleNote } from './Components';
 import './App.css';
@@ -22,6 +22,8 @@ function App() {
 				<Route path="/home/:_id" element={<SingleNote />} />
 				<Route path="/archive" element={<Archive />} />
 				<Route path="/archive/:_id" element={<SingleNote />} />
+				<Route path="/trash" element={<Trash />} />
+				<Route path="/trash/:_id" element={<SingleNote />} />
 			</Routes>
 		</>
 	);

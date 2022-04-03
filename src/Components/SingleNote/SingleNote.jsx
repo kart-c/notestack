@@ -1,30 +1,25 @@
 import { useState, useEffect } from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useArchive, useAuth, useNotes } from '../../Context';
-import { archiveNote, unarchiveNote } from '../../Services';
+import { useArchive, useAuth, useNotes, useTrash } from '../../Context';
+import { addNewNote, archiveDelete, archiveNote, deleteNote, unarchiveNote } from '../../Services';
 import { bgColorCheck } from '../../Utils';
 import { Editor } from '../Editor/Editor';
 import styles from './SingleNote.module.css';
 
 const SingleNote = () => {
 	const [isEditable, setIsEditable] = useState(false);
-
+	const params = useParams();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const { trashState, trashDispatch } = useTrash();
 	const {
 		notesState: { notes },
 		notesDispatch,
 	} = useNotes();
-
-	const params = useParams();
-
-	const navigate = useNavigate();
-
-	const location = useLocation();
-
 	const {
 		authState: { token },
 	} = useAuth();
-
 	const {
 		archiveState: { archives },
 		archiveDispatch,
@@ -38,7 +33,14 @@ const SingleNote = () => {
 
 	const archivedNote = archives.find((archive) => archive._id === params._id);
 
-	const checkCurrPage = () => (location.pathname.includes('home') ? currentNote : archivedNote);
+	const trashedNote = trashState.trash.find((trash) => trash._id === params._id);
+
+	const checkCurrPage = () =>
+		location.pathname.includes('home')
+			? currentNote
+			: location.pathname.includes('archive')
+			? archivedNote
+			: trashedNote;
 
 	const archiveHandler = async () => {
 		try {
@@ -70,18 +72,70 @@ const SingleNote = () => {
 		}
 	};
 
+	const trashHandler = async () => {
+		const note = location.pathname.includes('home') ? currentNote : archivedNote;
+		if (note === currentNote) {
+			try {
+				const response = await deleteNote(note._id, token);
+				if (response.status === 200) {
+					setIsEditable(true);
+					navigate('/home');
+					notesDispatch({ type: 'ADD_TO_TRASH', payload: response.data.notes });
+					trashDispatch({ type: 'ADD_TO_TRASH', payload: note });
+				} else {
+					console.error('ERROR: ', response);
+				}
+			} catch (error) {
+				console.error('ERROR: ', error);
+			}
+		} else {
+			try {
+				const response = await archiveDelete(token, note._id);
+				if (response.status === 200) {
+					navigate('/archive');
+					archiveDispatch({ type: 'REMOVE_FROM_ARCHIVE', payload: response.data.archives });
+					trashDispatch({ type: 'ADD_TO_TRASH', payload: note });
+				} else {
+					console.error('ERROR: ', response);
+				}
+			} catch (error) {
+				console.error('ERROR: ', error);
+			}
+		}
+	};
+
+	const restoreNoteHandler = async () => {
+		try {
+			const response = await addNewNote(trashedNote, token);
+			if (response.status === 201) {
+				navigate('/trash');
+				trashDispatch({ type: 'RESTORE_FROM_TRASH', payload: trashedNote._id });
+				notesDispatch({ type: 'RESTORE_FROM_TRASH', payload: response.data.notes });
+			} else {
+				console.error('ERROR: ', response);
+			}
+		} catch (error) {
+			console.error('ERROR: ', error);
+		}
+	};
+
+	const deleteHandler = () => {
+		trashDispatch({ type: 'DELETE_FROM_TRASH', payload: trashedNote._id });
+		navigate('/trash');
+	};
+
 	return (
 		<>
 			{isEditable ? (
 				<Editor
-					title={currentNote.title}
-					content={currentNote.content}
-					bgCard={currentNote.bgColor}
 					setIsEditable={setIsEditable}
+					title={currentNote && currentNote.title}
+					content={currentNote && currentNote.content}
+					bgCard={currentNote && currentNote.bgColor}
 				/>
 			) : (
 				<div className={styles.noteContainer}>
-					<article className={` ${styles.note} ${bgColorCheck(checkCurrPage().bgColor)}`}>
+					<article className={` ${styles.note}  ${bgColorCheck(checkCurrPage().bgColor)}`}>
 						<div className={styles.noteTitle}>
 							{HtmlParser(checkCurrPage().title)}
 							<div className={styles.btnContainer}>
@@ -99,14 +153,29 @@ const SingleNote = () => {
 										<i className="fa-solid fa-thumbtack"></i>
 									</button>
 								) : null}
+
+								{location.pathname.includes('trash') ? null : (
+									<button
+										title={location.pathname.includes('home') ? 'archive' : 'unarchive'}
+										onClick={location.pathname.includes('home') ? archiveHandler : unarchiveHandler}
+									>
+										<i className="fa-solid fa-box-archive"></i>
+									</button>
+								)}
+								{location.pathname.includes('trash') ? (
+									<button onClick={restoreNoteHandler}>
+										<i className="fa-solid fa-rotate-left"></i>
+									</button>
+								) : null}
 								<button
-									title={location.pathname.includes('home') ? 'archive' : 'unarchive'}
-									onClick={location.pathname.includes('home') ? archiveHandler : unarchiveHandler}
+									title={location.pathname.includes('trash') ? 'DELETE' : 'trash'}
+									onClick={location.pathname.includes('trash') ? deleteHandler : trashHandler}
 								>
-									<i className="fa-solid fa-box-archive"></i>
-								</button>
-								<button title="trash">
-									<i className="fa-solid fa-trash-can"></i>
+									<i
+										className={`fa-solid fa-trash-can ${
+											location.pathname.includes('trash') ? styles.trash : null
+										}`}
+									></i>
 								</button>
 							</div>
 						</div>

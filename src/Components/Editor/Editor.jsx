@@ -9,7 +9,7 @@ import styles from './Editor.module.css';
 import './Quill.css';
 import { useParams } from 'react-router-dom';
 
-const Editor = ({ title = '', content = '', bgCard = '', setIsEditable }) => {
+const Editor = ({ setIsEditable, title = '', content = '', bgCard = '' }) => {
 	const [newNote, setNewNote] = useState({ title, content });
 	const [bgColor, setBgColor] = useState(bgCard);
 	const [loading, setLoading] = useState(false);
@@ -55,6 +55,7 @@ const Editor = ({ title = '', content = '', bgCard = '', setIsEditable }) => {
 				const response = await addNewNote(note, token);
 				if (response.status === 201) {
 					setNewNote((prev) => ({ ...prev, title: '', content: '' }));
+					setBgColor('');
 					notesDispatch({ type: 'NEW_NOTE', payload: response.data.notes });
 					setLoading(false);
 				} else {
