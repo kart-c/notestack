@@ -46,3 +46,24 @@
 .quill {
 	color: var(--black);
 }
+
+.labelDropdown {
+	margin-top: 1.6rem;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 1.6rem;
+	align-items: center;
+}
+
+.labelDropdown select {
+	margin: 0 1.6rem;
+	cursor: pointer;
+	padding: 4px 8px;
+	border-radius: 1.2rem;
+}
+
+.labelDropdown button {
+	background-color: transparent;
+	color: var(--text-primary);
+	padding: 0;
+}

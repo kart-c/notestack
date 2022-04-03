@@ -3,22 +3,28 @@ import ReactQuill from 'react-quill';
 import { contentModules, titleModules } from './quill.module';
 import 'react-quill/dist/quill.snow.css';
 import { addNewNote, editNote } from '../../Services';
-import { useAuth, useNotes } from '../../Context';
+import { useAuth, useLabel, useNotes } from '../../Context';
 import { bgColorCheck } from '../../Utils';
 import styles from './Editor.module.css';
 import './Quill.css';
 import { useParams } from 'react-router-dom';
+import { LabelModal } from '../LabelModal/LabelModal';
 
 const Editor = ({ setIsEditable, title = '', content = '', bgCard = '' }) => {
 	const [newNote, setNewNote] = useState({ title, content });
 	const [bgColor, setBgColor] = useState(bgCard);
 	const [loading, setLoading] = useState(false);
+	const [labelModal, setLabelModal] = useState(false);
 
 	const {
 		authState: { token },
 	} = useAuth();
 
 	const { notesState, notesDispatch } = useNotes();
+
+	const {
+		labelState: { labels },
+	} = useLabel();
 
 	const params = useParams();
 
@@ -73,6 +79,7 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '' }) => {
 
 	return (
 		<section className={styles.editorSection}>
+			{labelModal ? <LabelModal setLabelModal={setLabelModal} /> : null}
 			<h3 className={styles.editorTitle}>New Note Title</h3>
 			<ReactQuill
 				className={`${styles.quill} ${bgColorCheck(bgColor)}`}
@@ -89,6 +96,25 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '' }) => {
 				onChange={(e) => setNewNote((prev) => ({ ...prev, content: e }))}
 				modules={contentModules}
 			/>
+			{labels.length > 0 ? (
+				<div className={styles.labelDropdown}>
+					<span>
+						<i class="fa-solid fa-tag"></i>
+					</span>
+					<select name="label" id="label">
+						<option value="label">Select label</option>
+						{labels.map((label) => (
+							<option value={label} key={label}>
+								{label}
+							</option>
+						))}
+					</select>
+					<button className="btn btn-primary" onClick={() => setLabelModal(true)}>
+						Add New Label
+					</button>
+				</div>
+			) : null}
+
 			<div className={styles.colorContainer}>
 				<span>
 					<i className="fa-solid fa-palette"></i>
