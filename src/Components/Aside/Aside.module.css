@@ -46,7 +46,7 @@ a.active {
 	background-color: var(--primary-color);
 }
 
-a + .newLabelBtn {
+.spacer + .newLabelBtn {
 	background-color: var(--primary-color);
 	display: block;
 	margin: 1.6rem auto 2.4rem;
