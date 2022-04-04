@@ -3,7 +3,7 @@ import HtmlParser from 'react-html-parser/lib/HtmlParser';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useArchive, useAuth, useNotes, useTrash } from '../../Context';
 import { addNewNote, archiveDelete, archiveNote, deleteNote, unarchiveNote } from '../../Services';
-import { bgColorCheck } from '../../Utils';
+import { bgColorCheck, chipColor } from '../../Utils';
 import { Editor } from '../Editor/Editor';
 import styles from './SingleNote.module.css';
 
@@ -193,14 +193,20 @@ const SingleNote = () => {
 							</div>
 						</div>
 						<small>{checkCurrPage() && checkCurrPage().date}</small>
-						<div
-							className={`${styles.chipContainer} ${
-								checkCurrPage() && bgColorCheck(checkCurrPage().bgColor)
-							}`}
-						>
-							<span className={styles.chip}>
-								Nature <i className="fas fa-times-circle"></i>
-							</span>
+
+						<div className={styles.chipContainer}>
+							{checkCurrPage() && checkCurrPage().tags.length > 0
+								? checkCurrPage().tags.map((label) => (
+										<span
+											className={`${styles.chip}  ${chipColor(
+												bgColorCheck(checkCurrPage().bgColor)
+											)}`}
+											key={label}
+										>
+											{label}
+										</span>
+								  ))
+								: null}
 						</div>
 						<div className={styles.noteContent}>
 							{checkCurrPage() && HtmlParser(checkCurrPage().content)}
