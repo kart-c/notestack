@@ -12,14 +12,17 @@ const LabelModal = ({ setLabelModal }) => {
 	} = useLabel();
 
 	const newLabelHandler = () => {
-		if (labels.some((label) => label === newLabel)) {
-			console.log('label already present');
-			setLabelModal(false);
-			setNewLabel('');
-		} else {
-			labelDispatch({ type: 'ADD_NEW_NOTE', payload: newLabel });
-			setLabelModal(false);
-			setNewLabel('');
+		if (newLabel) {
+			if (labels.some((label) => label === newLabel)) {
+				console.log('label already present');
+				alert('Label already exists');
+				setLabelModal(false);
+				setNewLabel('');
+			} else {
+				labelDispatch({ type: 'ADD_NEW_NOTE', payload: newLabel });
+				setLabelModal(false);
+				setNewLabel('');
+			}
 		}
 	};
 
@@ -35,7 +38,7 @@ const LabelModal = ({ setLabelModal }) => {
 						name="label"
 						placeholder="Travel"
 						value={newLabel}
-						onChange={(e) => setNewLabel(e.target.value)}
+						onChange={(e) => setNewLabel(e.target.value.trim())}
 					/>
 				</div>
 				<button className="btn btn-info btn-round" onClick={newLabelHandler}>
