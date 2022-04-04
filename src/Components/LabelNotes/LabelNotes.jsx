@@ -30,9 +30,10 @@ const LabelNotes = () => {
 			? archives
 			: trash;
 
+	const currentLabel = labels.find((label) => location.pathname.slice(1) === label);
+
 	const checkLabelPage = () => {
-		const currLabelPage = labels.find((label) => location.pathname.slice(1) === label);
-		return notes.filter((note) => note.tags.find((tag) => tag === currLabelPage));
+		return notes.filter((note) => note.tags.find((tag) => tag === currentLabel));
 	};
 
 	return (
@@ -58,7 +59,9 @@ const LabelNotes = () => {
 					? checkCurrPage().map((note) => <NoteCard key={note._id} {...note} />)
 					: null
 				: checkLabelPage().length > 0
-				? checkLabelPage().map((note) => <NoteCard key={note._id} {...note} />)
+				? checkLabelPage().map((note) => (
+						<NoteCard key={note._id} {...note} currentLabel={currentLabel} />
+				  ))
 				: null}
 		</div>
 	);
