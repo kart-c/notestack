@@ -30,7 +30,12 @@ function App() {
 				<Route path="/trash" element={<Trash />} />
 				<Route path="/trash/:_id" element={<SingleNote />} />
 				{labels.length > 0
-					? labels.map((label) => <Route key={label} path={`/${label}`} element={<LabelPage />} />)
+					? labels.map((label) => (
+							<React.Fragment key={label}>
+								<Route path={`/${label}`} element={<LabelPage />} />
+								<Route path={`/${label}:_id`} element={<SingleNote />} />
+							</React.Fragment>
+					  ))
 					: null}
 			</Routes>
 		</>
