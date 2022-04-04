@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { Home, Landing, Archive, Trash, LabelPage } from './Pages';
 import Mockman from 'mockman-js';
@@ -31,10 +32,10 @@ function App() {
 				<Route path="/trash/:_id" element={<SingleNote />} />
 				{labels.length > 0
 					? labels.map((label) => (
-							<React.Fragment key={label}>
+							<Fragment key={label}>
 								<Route path={`/${label}`} element={<LabelPage />} />
 								<Route path={`/${label}:_id`} element={<SingleNote />} />
-							</React.Fragment>
+							</Fragment>
 					  ))
 					: null}
 			</Routes>
