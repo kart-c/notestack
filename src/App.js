@@ -34,7 +34,7 @@ function App() {
 					? labels.map((label) => (
 							<Fragment key={label}>
 								<Route path={`/${label}`} element={<LabelPage />} />
-								<Route path={`/${label}:_id`} element={<SingleNote />} />
+								<Route path={`/${label}/:_id`} element={<SingleNote />} />
 							</Fragment>
 					  ))
 					: null}

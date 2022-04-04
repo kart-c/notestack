@@ -24,7 +24,7 @@ const NoteCard = ({ title, content, bgColor, _id, currentLabel }) => {
 				? setCurrPage('archive')
 				: setCurrPage('trash');
 		}
-	}, []);
+	}, [[location.pathname.slice(1)]]);
 
 	return (
 		<article
