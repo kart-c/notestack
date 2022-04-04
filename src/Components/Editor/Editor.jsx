@@ -10,12 +10,12 @@ import './Quill.css';
 import { useParams } from 'react-router-dom';
 import { LabelModal } from '../LabelModal/LabelModal';
 
-const Editor = ({ setIsEditable, title = '', content = '', bgCard = '' }) => {
+const Editor = ({ setIsEditable, title = '', content = '', bgCard = '', tags = [] }) => {
 	const [newNote, setNewNote] = useState({ title, content });
 	const [bgColor, setBgColor] = useState(bgCard);
 	const [loading, setLoading] = useState(false);
 	const [labelModal, setLabelModal] = useState(false);
-	const [noteLabels, setNoteLabels] = useState([]);
+	const [noteLabels, setNoteLabels] = useState(tags);
 
 	const {
 		authState: { token },
@@ -33,7 +33,7 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '' }) => {
 
 	const updateCardHandler = async () => {
 		const date = new Date().toLocaleString();
-		const note = { ...newNote, bgColor, date };
+		const note = { ...newNote, bgColor, date, tags: noteLabels };
 		try {
 			setLoading(true);
 			const response = await editNote(note, token, currentNote._id);
@@ -60,7 +60,6 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '' }) => {
 			try {
 				setLoading(true);
 				const response = await addNewNote(note, token);
-				console.log(response);
 				if (response.status === 201) {
 					setNewNote((prev) => ({ ...prev, title: '', content: '' }));
 					setBgColor('');
@@ -121,7 +120,6 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '' }) => {
 					  ))
 					: null}
 			</div>
-
 			{labels.length > 0 ? (
 				<div className={styles.labelDropdown}>
 					<span>

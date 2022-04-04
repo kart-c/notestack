@@ -35,18 +35,22 @@ const SingleNote = () => {
 
 	const trashedNote = trashState.trash.find((trash) => trash._id === params._id);
 
+	const currentLabel = notes.find((note) => note._id === params._id);
+
 	const checkCurrPage = () =>
 		location.pathname.includes('home')
 			? currentNote
 			: location.pathname.includes('archive')
 			? archivedNote
-			: trashedNote;
+			: location.pathname.includes('trash')
+			? trashedNote
+			: currentLabel;
 
 	const archiveHandler = async () => {
 		try {
 			const response = await archiveNote(currentNote, token, currentNote._id);
 			if (response.status === 201) {
-				navigate('/home');
+				navigate(-1);
 				notesDispatch({ type: 'ARCHIVE_NOTE', payload: response.data.notes });
 				archiveDispatch({ type: 'ADD_TO_ARCHIVE', payload: response.data.archives });
 			} else {
@@ -132,14 +136,20 @@ const SingleNote = () => {
 					title={currentNote && currentNote.title}
 					content={currentNote && currentNote.content}
 					bgCard={currentNote && currentNote.bgColor}
+					tags={currentNote && currentNote.tags}
 				/>
 			) : (
 				<div className={styles.noteContainer}>
-					<article className={` ${styles.note}  ${bgColorCheck(checkCurrPage().bgColor)}`}>
+					<article
+						className={` ${styles.note}  ${
+							checkCurrPage() && bgColorCheck(checkCurrPage().bgColor)
+						}`}
+					>
 						<div className={styles.noteTitle}>
-							{HtmlParser(checkCurrPage().title)}
+							{checkCurrPage() && HtmlParser(checkCurrPage().title)}
 							<div className={styles.btnContainer}>
-								{location.pathname.includes('home') ? (
+								{location.pathname.includes('trash') ||
+								location.pathname.includes('archive') ? null : (
 									<button
 										title="edit"
 										className={styles.editBtn}
@@ -147,17 +157,20 @@ const SingleNote = () => {
 									>
 										<i className="fa-solid fa-pen-to-square"></i>
 									</button>
-								) : null}
-								{location.pathname.includes('home') ? (
+								)}
+								{location.pathname.includes('trash') ||
+								location.pathname.includes('archive') ? null : (
 									<button title="pin">
 										<i className="fa-solid fa-thumbtack"></i>
 									</button>
-								) : null}
+								)}
 
 								{location.pathname.includes('trash') ? null : (
 									<button
 										title={location.pathname.includes('home') ? 'archive' : 'unarchive'}
-										onClick={location.pathname.includes('home') ? archiveHandler : unarchiveHandler}
+										onClick={
+											location.pathname.includes('archive') ? unarchiveHandler : archiveHandler
+										}
 									>
 										<i className="fa-solid fa-box-archive"></i>
 									</button>
@@ -179,13 +192,19 @@ const SingleNote = () => {
 								</button>
 							</div>
 						</div>
-						<small>{checkCurrPage().date}</small>
-						<div className={`${styles.chipContainer} ${bgColorCheck(checkCurrPage().bgColor)}`}>
+						<small>{checkCurrPage() && checkCurrPage().date}</small>
+						<div
+							className={`${styles.chipContainer} ${
+								checkCurrPage() && bgColorCheck(checkCurrPage().bgColor)
+							}`}
+						>
 							<span className={styles.chip}>
 								Nature <i className="fas fa-times-circle"></i>
 							</span>
 						</div>
-						<div className={styles.noteContent}>{HtmlParser(checkCurrPage().content)}</div>
+						<div className={styles.noteContent}>
+							{checkCurrPage() && HtmlParser(checkCurrPage().content)}
+						</div>
 					</article>
 				</div>
 			)}

@@ -30,10 +30,12 @@ const LabelNotes = () => {
 			? archives
 			: trash;
 
-	const currentLabel = labels.find((label) => location.pathname.slice(1) === label);
+	const locationArr = location.pathname.split('/');
+
+	const currentLabel = labels.find((label) => locationArr[1] === label);
 
 	const checkLabelPage = () => {
-		return notes.filter((note) => note.tags.find((tag) => tag === currentLabel));
+		return notes.filter((note) => note.tags.find((tag) => currentLabel.includes(tag)));
 	};
 
 	return (
