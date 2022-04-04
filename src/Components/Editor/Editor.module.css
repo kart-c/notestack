@@ -67,3 +67,23 @@
 	color: var(--text-primary);
 	padding: 0;
 }
+
+.chipContainer {
+	align-items: center;
+	display: flex;
+	margin: 1.6rem 0;
+	gap: 10px;
+}
+
+.chip {
+	padding: 8px 10px;
+	border-radius: 20px;
+	font-size: 1.4rem;
+	color: var(--black);
+}
+
+.chip button {
+	margin-left: 4px;
+	background-color: transparent;
+	display: inline-block;
+}
