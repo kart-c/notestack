@@ -28,7 +28,7 @@ const Aside = () => {
 				{labels.length > 0
 					? labels.map((label) => (
 							<NavLink key={label} to={`/${label}`} className={activeClass}>
-								{label}
+								<i class="fa-solid fa-note-sticky"></i> {label}
 							</NavLink>
 					  ))
 					: null}
