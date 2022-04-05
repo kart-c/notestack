@@ -1,22 +1,29 @@
 import { useState, useEffect } from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useLabel } from '../../Context';
 import { bgColorCheck } from '../../Utils';
 import styles from './NoteCard.module.css';
 
-const NoteCard = ({ title, content, bgColor, _id }) => {
+const NoteCard = ({ title, content, bgColor, _id, currentLabel }) => {
 	const [currPage, setCurrPage] = useState();
 
 	const navigate = useNavigate();
 
 	const location = useLocation();
 
+	const {} = useLabel();
+
 	useEffect(() => {
-		location.pathname.includes('home')
-			? setCurrPage('home')
-			: location.pathname.includes('archive')
-			? setCurrPage('archive')
-			: setCurrPage('trash');
+		if (currentLabel) {
+			setCurrPage(currentLabel);
+		} else {
+			location.pathname.includes('home')
+				? setCurrPage('home')
+				: location.pathname.includes('archive')
+				? setCurrPage('archive')
+				: setCurrPage('trash');
+		}
 	});
 
 	return (

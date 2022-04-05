@@ -12,6 +12,12 @@
 	--note-blue: #cbf0f8;
 	--note-purple: #d7aefb;
 	--note-gray: #e8eaed;
+	--chip-gray: #d1d1d1;
+	--chip-red: #ff7d72;
+	--chip-yellow: #fbec3a;
+	--chip-green: #b6fb64;
+	--chip-blue: #aceaf8;
+	--chip-purple: #ca8ffe;
 }
 
 /* iframe style was given to avoid the react overlay bug */
@@ -52,4 +58,28 @@ body {
 
 .note-gray {
 	background-color: var(--note-gray);
+}
+
+.chip-green {
+	background-color: var(--chip-green);
+}
+
+.chip-red {
+	background-color: var(--chip-red);
+}
+
+.chip-yellow {
+	background-color: var(--chip-yellow);
+}
+
+.chip-blue {
+	background-color: var(--chip-blue);
+}
+
+.chip-purple {
+	background-color: var(--chip-purple);
+}
+
+.chip-gray {
+	background-color: var(--chip-gray);
 }

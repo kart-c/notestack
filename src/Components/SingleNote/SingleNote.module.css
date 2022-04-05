@@ -90,16 +90,16 @@
 	align-items: center;
 	display: flex;
 	margin: 1.6rem 0;
+	gap: 10px;
 }
 
 .chip {
 	padding: 8px 10px;
+	text-align: center;
 	border-radius: 20px;
 	font-size: 1.4rem;
-}
-
-.chip i {
-	display: inline-block;
+	color: var(--black);
+	min-width: 2.4rem;
 }
 
 .trash {

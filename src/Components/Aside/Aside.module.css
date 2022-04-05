@@ -12,11 +12,6 @@
 	list-style: none;
 }
 
-.asideBtnList:nth-of-type(2) {
-	padding-top: 0;
-}
-
-/* .asideBtnList button, */
 .asideBtnList a {
 	background-color: transparent;
 	display: block;
@@ -24,10 +19,6 @@
 	font-size: 1.6rem;
 	cursor: pointer;
 	color: var(--text-primary);
-}
-
-.asideBtnList:nth-of-type(2) button:first-of-type {
-	padding-top: 0;
 }
 
 a.active {
@@ -46,7 +37,7 @@ a.active {
 	background-color: var(--primary-color);
 }
 
-a + .newLabelBtn {
+.aside .newLabelBtn {
 	background-color: var(--primary-color);
 	display: block;
 	margin: 1.6rem auto 2.4rem;
