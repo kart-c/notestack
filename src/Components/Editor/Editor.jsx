@@ -92,7 +92,7 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '', tags = [
 	return (
 		<section className={styles.editorSection}>
 			{labelModal ? <LabelModal setLabelModal={setLabelModal} /> : null}
-			<h3 className={styles.editorTitle}>New Note Title</h3>
+			<h3 className={styles.editorTitle}>Title</h3>
 			<ReactQuill
 				className={`${styles.quill} ${bgColorCheck(bgColor)}`}
 				theme="snow"
