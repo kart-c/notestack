@@ -43,3 +43,15 @@
 	padding-bottom: 8px;
 	border-bottom: 2px solid var(--primary-color);
 }
+
+.labelFilter input {
+	display: none;
+}
+
+.labelFilter label:hover {
+	opacity: 0.9;
+}
+
+.labelFilter label:active {
+	opacity: 0.7;
+}
