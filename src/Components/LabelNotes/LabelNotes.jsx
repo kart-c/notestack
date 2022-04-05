@@ -38,9 +38,10 @@ const LabelNotes = () => {
 
 	const currentLabel = labels.find((label) => locationArr[1] === label);
 
-	const checkLabelPage = () => {
-		return notes.filter((note) => note.tags.find((tag) => currentLabel.includes(tag)));
-	};
+	const checkLabelPage = () =>
+		currentLabel
+			? notes.filter((note) => note.tags.find((tag) => currentLabel.includes(tag)))
+			: null;
 
 	const sortedLabelPage = sortByDate(checkLabelPage(), sortBy);
 
