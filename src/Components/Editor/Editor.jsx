@@ -120,25 +120,22 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '', tags = [
 					  ))
 					: null}
 			</div>
-			{labels.length > 0 ? (
-				<div className={styles.labelDropdown}>
-					<span>
-						<i className="fa-solid fa-tag"></i>
-					</span>
-					<select name="label" id="label" onChange={addLabelHandler} value="">
-						<option value="label">Select label</option>
-						{labels.map((label) => (
-							<option value={label} key={label}>
-								{label}
-							</option>
-						))}
-					</select>
-					<button className="btn btn-primary" onClick={() => setLabelModal(true)}>
-						Add New Label
-					</button>
-				</div>
-			) : null}
-
+			<div className={styles.labelDropdown}>
+				<span>
+					<i className="fa-solid fa-tag"></i>
+				</span>
+				<select name="label" id="label" onChange={addLabelHandler} value="">
+					<option value="label">Select label</option>
+					{labels.map((label) => (
+						<option value={label} key={label}>
+							{label}
+						</option>
+					))}
+				</select>
+				<button className="btn btn-primary" onClick={() => setLabelModal(true)}>
+					Add New Label
+				</button>
+			</div>
 			<div className={styles.colorContainer}>
 				<span>
 					<i className="fa-solid fa-palette"></i>
