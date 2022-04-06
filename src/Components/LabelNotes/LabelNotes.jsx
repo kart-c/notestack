@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useArchive, useLabel, useNotes, useTrash } from '../../Context';
-import { priorityFilter, sortByDate } from '../../Utils';
+import { priorityFilter, searchNotes, sortByDate } from '../../Utils';
 import { NoteCard } from '../NoteCard/NoteCard';
 import styles from './LabelNotes.module.css';
 
@@ -38,6 +38,8 @@ const LabelNotes = () => {
 
 	const sortedCurrPage = sortByDate(filteredCurrPage, sortBy);
 
+	const searchedCurrPage = searchNotes(sortedCurrPage, searchValue);
+
 	const locationArr = location.pathname.split('/');
 
 	const currentLabel = labels.find((label) => locationArr[1] === label);
@@ -50,6 +52,8 @@ const LabelNotes = () => {
 	const filteredLabelPage = priorityFilter(checkLabelPage(), priority);
 
 	const sortedLabelPage = sortByDate(filteredLabelPage, sortBy);
+
+	const searchedLabelPage = searchNotes(sortedLabelPage, searchValue);
 
 	return (
 		<div className={styles.labelNotes}>
@@ -94,11 +98,11 @@ const LabelNotes = () => {
 			{location.pathname.includes('home') ||
 			location.pathname.includes('archive') ||
 			location.pathname.includes('trash')
-				? sortedCurrPage.length > 0
-					? sortedCurrPage.map((note) => <NoteCard key={note._id} {...note} />)
+				? searchedCurrPage.length > 0
+					? searchedCurrPage.map((note) => <NoteCard key={note._id} {...note} />)
 					: null
-				: sortedLabelPage.length > 0
-				? sortedLabelPage.map((note) => (
+				: searchedLabelPage.length > 0
+				? searchedLabelPage.map((note) => (
 						<NoteCard key={note._id} {...note} currentLabel={currentLabel} />
 				  ))
 				: null}
