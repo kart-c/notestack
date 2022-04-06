@@ -51,6 +51,11 @@
 	text-transform: uppercase;
 }
 
+.noteContent > * {
+	word-break: break-word;
+	white-space: normal;
+}
+
 .noteContainer small {
 	font-size: 1.2rem;
 	display: block;
