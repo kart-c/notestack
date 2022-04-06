@@ -21,7 +21,7 @@ const Signup = ({ setModalState }) => {
 			const response = await loginService(signupData, 'signup');
 			if (response.status === 201) {
 				localStorage.setItem('token', response.data.encodedToken);
-				localStorage.setItem('user', response.data.foundUser);
+				localStorage.setItem('user', JSON.stringify(response.data.foundUser));
 				authDispatch({ type: 'AUTH', payload: response.data });
 				alert('Signed up!!');
 				setModalState('');
