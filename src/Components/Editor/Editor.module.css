@@ -91,3 +91,15 @@
 	background-color: transparent;
 	display: inline-block;
 }
+
+.priorityDropdown {
+	margin-top: 1.6rem;
+	font-size: 1.6rem;
+}
+
+.priorityDropdown select {
+	margin: 0 1.6rem;
+	cursor: pointer;
+	padding: 4px 8px;
+	border-radius: 1.2rem;
+}

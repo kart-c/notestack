@@ -10,12 +10,20 @@ import './Quill.css';
 import { useParams } from 'react-router-dom';
 import { LabelModal } from '../LabelModal/LabelModal';
 
-const Editor = ({ setIsEditable, title = '', content = '', bgCard = '', tags = [] }) => {
+const Editor = ({
+	setIsEditable,
+	title = '',
+	content = '',
+	bgCard = '',
+	tags = [],
+	notePriority = '',
+}) => {
 	const [newNote, setNewNote] = useState({ title, content });
 	const [bgColor, setBgColor] = useState(bgCard);
 	const [loading, setLoading] = useState(false);
 	const [labelModal, setLabelModal] = useState(false);
 	const [noteLabels, setNoteLabels] = useState(tags);
+	const [priority, setPriority] = useState(notePriority);
 
 	const {
 		authState: { token },
@@ -33,7 +41,7 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '', tags = [
 
 	const updateCardHandler = async () => {
 		const date = new Date().toLocaleString();
-		const note = { ...newNote, bgColor, date, tags: noteLabels };
+		const note = { ...newNote, bgColor, date, tags: noteLabels, priority };
 		try {
 			setLoading(true);
 			const response = await editNote(note, token, currentNote._id);
@@ -56,7 +64,14 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '', tags = [
 		if (newNote.content) {
 			const noteTitle = (title) =>
 				title === '<p><br></p>' || !title.length ? '<p>My Note</p>' : title;
-			const note = { ...newNote, title: noteTitle(newNote.title), bgColor, date, tags: noteLabels };
+			const note = {
+				...newNote,
+				title: noteTitle(newNote.title),
+				bgColor,
+				date,
+				tags: noteLabels,
+				priority,
+			};
 			try {
 				setLoading(true);
 				const response = await addNewNote(note, token);
@@ -135,6 +150,21 @@ const Editor = ({ setIsEditable, title = '', content = '', bgCard = '', tags = [
 				<button className="btn btn-primary" onClick={() => setLabelModal(true)}>
 					Add New Label
 				</button>
+			</div>
+			<div className={styles.priorityDropdown}>
+				<span>
+					<i class="fa-solid fa-star"></i>
+				</span>
+				<select
+					name="priority"
+					id="priority"
+					onChange={(e) => setPriority(e.target.value)}
+					value={priority}
+				>
+					<option value="">Default</option>
+					<option value="low">Low</option>
+					<option value="high">High</option>
+				</select>
 			</div>
 			<div className={styles.colorContainer}>
 				<span>
