@@ -97,15 +97,25 @@ const LabelNotes = () => {
 			</div>
 			{location.pathname.includes('home') ||
 			location.pathname.includes('archive') ||
-			location.pathname.includes('trash')
-				? searchedCurrPage.length > 0
-					? searchedCurrPage.map((note) => <NoteCard key={note._id} {...note} />)
-					: null
-				: searchedLabelPage.length > 0
-				? searchedLabelPage.map((note) => (
-						<NoteCard key={note._id} {...note} currentLabel={currentLabel} />
-				  ))
-				: null}
+			location.pathname.includes('trash') ? (
+				searchedCurrPage.length > 0 ? (
+					<>
+						<div className={styles.allNotes}>
+							{searchedCurrPage.map((note) => (
+								<NoteCard key={note._id} {...note} />
+							))}
+						</div>
+					</>
+				) : null
+			) : searchedLabelPage.length > 0 ? (
+				<>
+					<div className={styles.allNotes}>
+						{searchedLabelPage.map((note) => (
+							<NoteCard key={note._id} {...note} currentLabel={currentLabel} />
+						))}
+					</div>
+				</>
+			) : null}
 		</div>
 	);
 };

@@ -3,17 +3,21 @@
 	width: 24rem;
 	padding: 1.6rem;
 	flex-shrink: 0;
-	max-height: calc(100vh - 3.2rem);
+}
+
+.allNotes {
+	margin-top: 1.6rem;
+	max-height: calc(100vh - 24rem);
 	overflow: auto;
 	scrollbar-width: thin;
 	scrollbar-color: var(--secondary-color) transparent;
 }
 
-.labelNotes::-webkit-scrollbar {
+.allNotes::-webkit-scrollbar {
 	width: 6px;
 }
 
-.labelNotes::-webkit-scrollbar-thumb {
+.allNotes::-webkit-scrollbar-thumb {
 	border-radius: 50px;
 	background-color: var(--secondary-color);
 }
