@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { LabelModal } from '../../Components';
-import { useLabel } from '../../Context';
+import { useAuth, useLabel } from '../../Context';
 import styles from './Aside.module.css';
 
 const activeClass = ({ isActive }) => (isActive ? styles.active : '');
@@ -12,6 +12,20 @@ const Aside = () => {
 	const {
 		labelState: { labels },
 	} = useLabel();
+
+	const {
+		authState: { user },
+		authDispatch,
+	} = useAuth();
+
+	const navigate = useNavigate();
+
+	const logoutHandler = () => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('user');
+		authDispatch({ type: 'LOGOUT' });
+		navigate('/');
+	};
 
 	return (
 		<aside className={styles.aside}>
@@ -49,8 +63,10 @@ const Aside = () => {
 				</NavLink>
 			</div>
 			<div className={styles.userProfile}>
-				<img src="https://picsum.photos/100" alt="user avatar" className="avatar avatar-sm" />
-				<span>User name</span>
+				<span>{user.firstName}</span>
+				<button className="btn btn-primary" onClick={logoutHandler}>
+					<i className="fa-solid fa-arrow-right-from-bracket"></i>
+				</button>
 			</div>
 		</aside>
 	);

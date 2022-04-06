@@ -9,12 +9,14 @@ const AuthContext = createContext({
 const AuthProvider = ({ children }) => {
 	const [authState, authDispatch] = useReducer(authReducer, {
 		token: '',
+		user: '',
 	});
 
 	useEffect(() => {
-		const token = localStorage.getItem('token');
-		if (token) {
-			authDispatch({ type: 'AUTH', payload: token });
+		const encodedToken = localStorage.getItem('token');
+		const foundUser = JSON.parse(localStorage.getItem('user'));
+		if (encodedToken) {
+			authDispatch({ type: 'AUTH', payload: { encodedToken, foundUser } });
 		}
 	}, []);
 

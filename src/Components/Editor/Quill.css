@@ -1,7 +1,7 @@
 .ql-editor {
 	word-break: break-word;
 	white-space: normal;
-	max-height: 22rem;
+	max-height: 14rem;
 	scrollbar-width: thin;
 	scrollbar-color: var(--secondary-color) transparent;
 }

@@ -17,7 +17,8 @@ const Login = ({ setModalState }) => {
 			const response = await loginService(loginData, 'login');
 			if (response.status === 200) {
 				localStorage.setItem('token', response.data.encodedToken);
-				authDispatch({ type: 'AUTH', payload: response.data.encodedToken });
+				localStorage.setItem('user', JSON.stringify(response.data.foundUser));
+				authDispatch({ type: 'AUTH', payload: response.data });
 				alert('Logged in!!');
 				setModalState('');
 				navigate('/home');

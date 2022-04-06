@@ -8,7 +8,8 @@ const Signup = ({ setModalState }) => {
 	const [signupData, setSignupData] = useState({
 		email: '',
 		password: '',
-		name: '',
+		firstName: '',
+		confirmPassword: '',
 	});
 
 	const { authDispatch } = useAuth();
@@ -21,7 +22,8 @@ const Signup = ({ setModalState }) => {
 			const response = await loginService(signupData, 'signup');
 			if (response.status === 201) {
 				localStorage.setItem('token', response.data.encodedToken);
-				authDispatch({ type: 'AUTH', payload: response.data.encodedToken });
+				localStorage.setItem('user', JSON.stringify(response.data.createdUser));
+				authDispatch({ type: 'AUTH', payload: response.data });
 				alert('Signed up!!');
 				setModalState('');
 				navigate('/home');
@@ -45,8 +47,8 @@ const Signup = ({ setModalState }) => {
 						id="name"
 						name="name"
 						placeholder="John Doe"
-						value={signupData.name}
-						onChange={(e) => setSignupData((prev) => ({ ...prev, name: e.target.name }))}
+						value={signupData.firstName}
+						onChange={(e) => setSignupData((prev) => ({ ...prev, firstName: e.target.value }))}
 					/>
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
@@ -57,7 +59,7 @@ const Signup = ({ setModalState }) => {
 						name="email"
 						placeholder="johndoe@gmail.com"
 						value={signupData.email}
-						onChange={(e) => setSignupData((prev) => ({ ...prev, email: e.target.email }))}
+						onChange={(e) => setSignupData((prev) => ({ ...prev, email: e.target.value }))}
 					/>
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
@@ -68,7 +70,7 @@ const Signup = ({ setModalState }) => {
 						name="password"
 						placeholder="************"
 						value={signupData.password}
-						onChange={(e) => setSignupData((prev) => ({ ...prev, password: e.target.password }))}
+						onChange={(e) => setSignupData((prev) => ({ ...prev, password: e.target.value }))}
 					/>
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
@@ -78,8 +80,10 @@ const Signup = ({ setModalState }) => {
 						id="confirm-password"
 						name="password"
 						placeholder="************"
-						value={signupData.name}
-						onChange={(e) => setSignupData((prev) => ({ ...prev, name: e.target.name }))}
+						value={signupData.confirmPassword}
+						onChange={(e) =>
+							setSignupData((prev) => ({ ...prev, confirmPassword: e.target.value }))
+						}
 					/>
 				</div>
 				<div className={styles.checkboxContainer}>
