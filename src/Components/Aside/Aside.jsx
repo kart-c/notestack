@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { LabelModal } from '../../Components';
 import { useAuth, useLabel } from '../../Context';
 import styles from './Aside.module.css';
@@ -15,9 +15,17 @@ const Aside = () => {
 
 	const {
 		authState: { user },
+		authDispatch,
 	} = useAuth();
 
-	console.log(user);
+	const navigate = useNavigate();
+
+	const logoutHandler = () => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('user');
+		authDispatch({ type: 'LOGOUT' });
+		navigate('/');
+	};
 
 	return (
 		<aside className={styles.aside}>
@@ -56,8 +64,8 @@ const Aside = () => {
 			</div>
 			<div className={styles.userProfile}>
 				<span>{user.firstName}</span>
-				<button className="btn btn-primary">
-					<i class="fa-solid fa-arrow-right-from-bracket"></i>
+				<button className="btn btn-primary" onClick={logoutHandler}>
+					<i className="fa-solid fa-arrow-right-from-bracket"></i>
 				</button>
 			</div>
 		</aside>
