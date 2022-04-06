@@ -28,7 +28,7 @@ const NoteCard = ({ title, content, bgColor, _id, currentLabel, date }) => {
 
 	const cardDate = (date) => {
 		const newDate = new Date(date).toDateString().split(' ');
-		const newTime = new Date(date).toLocaleTimeString();
+		const newTime = new Date(date).toLocaleTimeString().slice(0, 5);
 		return `${newDate[2]} ${newDate[1]} ${newTime}`;
 	};
 
