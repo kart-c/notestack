@@ -154,7 +154,7 @@ const Editor = ({
 			</div>
 			<div className={styles.priorityDropdown}>
 				<span>
-					<i class="fa-solid fa-star"></i>
+					<i className="fa-solid fa-star"></i>
 				</span>
 				<select
 					name="priority"
