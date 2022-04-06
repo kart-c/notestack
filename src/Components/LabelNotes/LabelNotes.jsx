@@ -8,6 +8,7 @@ import styles from './LabelNotes.module.css';
 const LabelNotes = () => {
 	const [sortBy, setSortBy] = useState('');
 	const [priority, setPriority] = useState('');
+	const [searchValue, setSearchValue] = useState('');
 	const location = useLocation();
 
 	const {
@@ -53,7 +54,15 @@ const LabelNotes = () => {
 	return (
 		<div className={styles.labelNotes}>
 			<div className={`input-container ${styles.inputContainer}`}>
-				<input type="text" id="search" name="search" placeholder="Search Notes ..." />
+				<input
+					type="text"
+					id="search"
+					name="search"
+					placeholder="Search Notes by Title..."
+					autoComplete="off"
+					value={searchValue}
+					onChange={(e) => setSearchValue(e.target.value)}
+				/>
 				<i className="fa-solid fa-magnifying-glass"></i>
 			</div>
 			<div className={styles.labelFilter}>
