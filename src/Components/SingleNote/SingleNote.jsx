@@ -137,6 +137,7 @@ const SingleNote = () => {
 					content={currentNote && currentNote.content}
 					bgCard={currentNote && currentNote.bgColor}
 					tags={currentNote && currentNote.tags}
+					notePriority={currentNote && currentNote.priority}
 				/>
 			) : (
 				<div className={styles.noteContainer}>
