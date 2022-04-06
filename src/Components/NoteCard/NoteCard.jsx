@@ -5,7 +5,7 @@ import { useLabel } from '../../Context';
 import { bgColorCheck } from '../../Utils';
 import styles from './NoteCard.module.css';
 
-const NoteCard = ({ title, content, bgColor, _id, currentLabel, date }) => {
+const NoteCard = ({ title, content, bgColor, _id, currentLabel, date, priority }) => {
 	const [currPage, setCurrPage] = useState();
 
 	const navigate = useNavigate();
@@ -37,6 +37,7 @@ const NoteCard = ({ title, content, bgColor, _id, currentLabel, date }) => {
 			className={`card ${styles.card} ${bgColorCheck(bgColor)}`}
 			onClick={() => navigate(`/${currPage}/${_id}`)}
 		>
+			{priority ? <span className={styles.priorityTag}>{priority}</span> : null}
 			<div className={`content ${styles.contentContainer}`}>
 				<div className={styles.title}>
 					{HtmlParser(title)} <span>{cardDate(date)}</span>

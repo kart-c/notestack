@@ -9,6 +9,7 @@
 	color: var(--black);
 	border-radius: 10px;
 	cursor: pointer;
+	position: relative;
 }
 
 .contentContainer {
@@ -45,4 +46,14 @@
 	display: inline-block;
 	font-size: 1.2rem;
 	font-weight: 400;
+}
+
+.priorityTag {
+	position: absolute;
+	bottom: 4px;
+	right: 4px;
+	background-color: var(--primary-color);
+	padding: 4px 3.2rem 10px;
+	color: var(--text-primary);
+	transform: rotateZ(-35deg) translate(2.4rem, 2.4rem);
 }
