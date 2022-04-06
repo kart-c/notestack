@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useArchive, useLabel, useNotes, useTrash } from '../../Context';
 import { priorityFilter, searchNotes, sortByDate } from '../../Utils';
 import { NoteCard } from '../NoteCard/NoteCard';
@@ -10,6 +10,7 @@ const LabelNotes = () => {
 	const [priority, setPriority] = useState('');
 	const [searchValue, setSearchValue] = useState('');
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const {
 		notesState: { notes },
@@ -116,6 +117,9 @@ const LabelNotes = () => {
 					</div>
 				</>
 			) : null}
+			<button className={`btn btn-primary ${styles.newNoteBtn}`} onClick={() => navigate('/home')}>
+				Add New Note
+			</button>
 		</div>
 	);
 };
