@@ -13,9 +13,10 @@ const AuthProvider = ({ children }) => {
 	});
 
 	useEffect(() => {
-		const token = localStorage.getItem('token');
-		if (token) {
-			authDispatch({ type: 'AUTH', payload: token });
+		const encodedToken = localStorage.getItem('token');
+		const foundUser = localStorage.getItem('user');
+		if (encodedToken) {
+			authDispatch({ type: 'AUTH', payload: { encodedToken, foundUser } });
 		}
 	}, []);
 
