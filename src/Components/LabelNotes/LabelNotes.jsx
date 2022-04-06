@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useArchive, useLabel, useNotes, useTrash } from '../../Context';
-import { sortByDate } from '../../Utils';
+import { priorityFilter, sortByDate } from '../../Utils';
 import { NoteCard } from '../NoteCard/NoteCard';
 import styles from './LabelNotes.module.css';
 
 const LabelNotes = () => {
 	const [sortBy, setSortBy] = useState('');
+	const [priority, setPriority] = useState('');
 	const location = useLocation();
 
 	const {
@@ -32,7 +33,9 @@ const LabelNotes = () => {
 			? archives
 			: trash;
 
-	const sortedCurrPage = sortByDate(checkCurrPage(), sortBy);
+	const filteredCurrPage = priorityFilter(checkCurrPage(), priority);
+
+	const sortedCurrPage = sortByDate(filteredCurrPage, sortBy);
 
 	const locationArr = location.pathname.split('/');
 
@@ -43,7 +46,9 @@ const LabelNotes = () => {
 			? notes.filter((note) => note.tags.find((tag) => currentLabel.includes(tag)))
 			: null;
 
-	const sortedLabelPage = sortByDate(checkLabelPage(), sortBy);
+	const filteredLabelPage = priorityFilter(checkLabelPage(), priority);
+
+	const sortedLabelPage = sortByDate(filteredLabelPage, sortBy);
 
 	return (
 		<div className={styles.labelNotes}>
@@ -66,7 +71,12 @@ const LabelNotes = () => {
 				</button>
 			</div>
 			<div className={styles.priority}>
-				<select name="priority" id="priority">
+				<select
+					name="priority"
+					id="priority"
+					value={priority}
+					onChange={(e) => setPriority(e.target.value)}
+				>
 					<option value="">Default</option>
 					<option value="low">Low</option>
 					<option value="high">High</option>
