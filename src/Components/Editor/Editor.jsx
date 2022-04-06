@@ -78,6 +78,7 @@ const Editor = ({
 				if (response.status === 201) {
 					setNewNote((prev) => ({ ...prev, title: '', content: '' }));
 					setBgColor('');
+					setPriority('');
 					setNoteLabels([]);
 					notesDispatch({ type: 'NEW_NOTE', payload: response.data.notes });
 					setLoading(false);
