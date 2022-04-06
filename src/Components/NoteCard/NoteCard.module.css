@@ -19,16 +19,21 @@
 	width: 100%;
 }
 
+.title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .title p {
 	border: 0;
 	font-size: 1.6rem;
 	font-weight: 700;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	padding-bottom: 6px;
+	width: 60%;
 }
 
 .content {

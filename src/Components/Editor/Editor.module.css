@@ -7,11 +7,15 @@
 }
 
 .editorTitle {
-	margin: 1.6rem 0;
+	margin: 8px 0;
 }
 
 .editorTitle:first-of-type {
 	margin-top: 0;
+}
+
+.editorTitle:last-of-type {
+	margin-top: 1.6rem;
 }
 
 .btn {

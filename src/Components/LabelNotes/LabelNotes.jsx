@@ -1,10 +1,12 @@
-import React from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useArchive, useLabel, useNotes, useTrash } from '../../Context';
+import { sortByDate } from '../../Utils';
 import { NoteCard } from '../NoteCard/NoteCard';
 import styles from './LabelNotes.module.css';
 
 const LabelNotes = () => {
+	const [sortBy, setSortBy] = useState('');
 	const location = useLocation();
 
 	const {
@@ -30,13 +32,18 @@ const LabelNotes = () => {
 			? archives
 			: trash;
 
+	const sortedCurrPage = sortByDate(checkCurrPage(), sortBy);
+
 	const locationArr = location.pathname.split('/');
 
 	const currentLabel = labels.find((label) => locationArr[1] === label);
 
-	const checkLabelPage = () => {
-		return notes.filter((note) => note.tags.find((tag) => currentLabel.includes(tag)));
-	};
+	const checkLabelPage = () =>
+		currentLabel
+			? notes.filter((note) => note.tags.find((tag) => currentLabel.includes(tag)))
+			: null;
+
+	const sortedLabelPage = sortByDate(checkLabelPage(), sortBy);
 
 	return (
 		<div className={styles.labelNotes}>
@@ -46,22 +53,34 @@ const LabelNotes = () => {
 			</div>
 			<div className={styles.labelFilter}>
 				<div className="radio-container">
-					<input type="radio" name="example input" id="newest" />
+					<input
+						type="radio"
+						name="example input"
+						id="newest"
+						value="highToLow"
+						onChange={(e) => setSortBy(e.target.value)}
+					/>
 					<label htmlFor="newest">Newest First</label>
 				</div>
 				<div className="radio-container">
-					<input type="radio" name="example input" id="last" />
-					<label htmlFor="last">Last First</label>
+					<input
+						type="radio"
+						name="example input"
+						id="oldest"
+						value="lowToHigh"
+						onChange={(e) => setSortBy(e.target.value)}
+					/>
+					<label htmlFor="oldest">Oldest First</label>
 				</div>
 			</div>
 			{location.pathname.includes('home') ||
 			location.pathname.includes('archive') ||
 			location.pathname.includes('trash')
-				? checkCurrPage().length > 0
-					? checkCurrPage().map((note) => <NoteCard key={note._id} {...note} />)
+				? sortedCurrPage.length > 0
+					? sortedCurrPage.map((note) => <NoteCard key={note._id} {...note} />)
 					: null
-				: checkLabelPage().length > 0
-				? checkLabelPage().map((note) => (
+				: sortedLabelPage.length > 0
+				? sortedLabelPage.map((note) => (
 						<NoteCard key={note._id} {...note} currentLabel={currentLabel} />
 				  ))
 				: null}
