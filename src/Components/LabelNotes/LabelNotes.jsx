@@ -52,26 +52,18 @@ const LabelNotes = () => {
 				<i className="fa-solid fa-magnifying-glass"></i>
 			</div>
 			<div className={styles.labelFilter}>
-				<div className="radio-container">
-					<input
-						type="radio"
-						name="example input"
-						id="newest"
-						value="highToLow"
-						onChange={(e) => setSortBy(e.target.value)}
-					/>
-					<label htmlFor="newest">Newest First</label>
-				</div>
-				<div className="radio-container">
-					<input
-						type="radio"
-						name="example input"
-						id="oldest"
-						value="lowToHigh"
-						onChange={(e) => setSortBy(e.target.value)}
-					/>
-					<label htmlFor="oldest">Oldest First</label>
-				</div>
+				<button
+					className={`btn btn-primary ${styles.sortBtn}`}
+					onClick={() => setSortBy('lowToHigh')}
+				>
+					Oldest First
+				</button>
+				<button
+					className={`btn btn-primary ${styles.sortBtn}`}
+					onClick={() => setSortBy('highToLow')}
+				>
+					Newest First
+				</button>
 			</div>
 			{location.pathname.includes('home') ||
 			location.pathname.includes('archive') ||
