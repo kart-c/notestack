@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
 
 	useEffect(() => {
 		const encodedToken = localStorage.getItem('token');
-		const foundUser = localStorage.getItem('user');
+		const foundUser = JSON.parse(localStorage.getItem('user'));
 		if (encodedToken) {
 			authDispatch({ type: 'AUTH', payload: { encodedToken, foundUser } });
 		}
