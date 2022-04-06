@@ -65,6 +65,13 @@ const LabelNotes = () => {
 					Newest First
 				</button>
 			</div>
+			<div className={styles.priority}>
+				<select name="priority" id="priority">
+					<option value="">Default</option>
+					<option value="low">Low</option>
+					<option value="high">High</option>
+				</select>
+			</div>
 			{location.pathname.includes('home') ||
 			location.pathname.includes('archive') ||
 			location.pathname.includes('trash')
