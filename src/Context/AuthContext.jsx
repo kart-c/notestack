@@ -9,6 +9,7 @@ const AuthContext = createContext({
 const AuthProvider = ({ children }) => {
 	const [authState, authDispatch] = useReducer(authReducer, {
 		token: '',
+		user: '',
 	});
 
 	useEffect(() => {
