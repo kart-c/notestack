@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useAuth } from '../../Context';
 import { loginService } from '../../Services';
 import styles from './Login.module.css';
@@ -16,10 +17,10 @@ const Login = ({ setModalState }) => {
 		try {
 			const response = await loginService(loginData, 'login');
 			if (response.status === 200) {
+				toast.success(`Welcome back! ${response.data.foundUser.firstName}`);
 				localStorage.setItem('token', response.data.encodedToken);
 				localStorage.setItem('user', JSON.stringify(response.data.foundUser));
 				authDispatch({ type: 'AUTH', payload: response.data });
-				alert('Logged in!!');
 				setModalState('');
 				navigate('/home');
 			} else {
@@ -27,8 +28,7 @@ const Login = ({ setModalState }) => {
 				alert('ERROR');
 			}
 		} catch (error) {
-			console.error('ERROR: ', error);
-			alert('ERROR');
+			toast.error(error.response.data.errors[0]);
 		}
 	};
 

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { useLabel } from '../../Context';
 import { Backdrop } from '../Backdrop/Backdrop';
 import styles from './LabelModal.module.css';
@@ -19,9 +20,7 @@ const LabelModal = ({ setLabelModal }) => {
 	const newLabelHandler = () => {
 		if (newLabel) {
 			if (labels.some((label) => label === newLabel)) {
-				console.log('label already present');
-				alert('Label already exists');
-				setLabelModal(false);
+				toast.info(`${newLabel} already exists!`);
 				setNewLabel('');
 			} else {
 				labelDispatch({ type: 'ADD_NEW_NOTE', payload: newLabel });

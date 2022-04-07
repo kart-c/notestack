@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useAuth } from '../../Context';
 import { loginService } from '../../Services';
 import styles from '../Login/Login.module.css';
@@ -18,22 +19,35 @@ const Signup = ({ setModalState }) => {
 
 	const signupHandler = async (e) => {
 		e.preventDefault();
-		try {
-			const response = await loginService(signupData, 'signup');
-			if (response.status === 201) {
-				localStorage.setItem('token', response.data.encodedToken);
-				localStorage.setItem('user', JSON.stringify(response.data.createdUser));
-				authDispatch({ type: 'AUTH', payload: response.data });
-				alert('Signed up!!');
-				setModalState('');
-				navigate('/home');
+		if (
+			signupData.email &&
+			signupData.password &&
+			signupData.firstName &&
+			signupData.confirmPassword
+		) {
+			if (signupData.password === signupData.confirmPassword) {
+				try {
+					const response = await loginService(signupData, 'signup');
+					if (response.status === 201) {
+						localStorage.setItem('token', response.data.encodedToken);
+						localStorage.setItem('user', JSON.stringify(response.data.createdUser));
+						authDispatch({ type: 'AUTH', payload: response.data });
+						toast.success(`Welcome ${response.data.createdUser.firstName}`);
+						setModalState('');
+						navigate('/home');
+					} else {
+						console.error('ERROR: ', response);
+						alert('ERROR');
+					}
+				} catch (error) {
+					console.error('ERROR: ', error);
+					alert('ERROR');
+				}
 			} else {
-				console.error('ERROR: ', response);
-				alert('ERROR');
+				toast.error('Passwords do not match');
 			}
-		} catch (error) {
-			console.error('ERROR: ', error);
-			alert('ERROR');
+		} else {
+			toast.warning('Fill all inputs');
 		}
 	};
 	return (

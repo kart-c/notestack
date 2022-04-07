@@ -18,11 +18,17 @@
 	--chip-green: #b6fb64;
 	--chip-blue: #aceaf8;
 	--chip-purple: #ca8ffe;
+	--toastify-toast-min-height: 5.6rem;
+	--toastify-color-info: var(--info-color);
 }
 
 /* iframe style was given to avoid the react overlay bug */
-iframe {
+/* iframe {
 	pointer-events: none;
+} */
+
+.Toastify__toast-container--top-right {
+	font-size: var(--text-md);
 }
 
 body {
