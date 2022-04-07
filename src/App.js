@@ -4,6 +4,8 @@ import { Home, Landing, Archive, Trash, LabelPage } from './Pages';
 import Mockman from 'mockman-js';
 import { Aside, LabelNotes, RequiresAuth, SingleNote } from './Components';
 import { useLabel } from './Context';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 function App() {
@@ -15,6 +17,18 @@ function App() {
 
 	return (
 		<>
+			<ToastContainer
+				theme="colored"
+				position="top-right"
+				autoClose={2000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 			{location.pathname !== '/' ? (
 				<>
 					<Aside />
