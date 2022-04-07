@@ -2,6 +2,9 @@
 
 NoteStack is a note taking application where you can jot down quick thoughts. Take notes the simple way for free. Forever.
 
+![Forks](https://img.shields.io/github/forks/kart-c/notestack)
+![Stars](https://img.shields.io/github/stars/kart-c/notestack)
+
 ---
 
 ## How to Use
@@ -90,7 +93,7 @@ If you would like to request a feature, or report a bug simple click [here](http
 ## Desktop Demo
 
 <p align="center">
-  <img width="100%" src="./src/Assets/notestack.gif" alt="CheckMate Store"/>
+  <img width="100%" src="./src/Assets/notestack.gif" alt="Notestack"/>
 </p>
 
 ## Connect with me
