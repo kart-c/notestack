@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import {
 	ArchiveProvider,
 	AuthProvider,
+	FooterNavProvider,
 	LabelProvider,
 	NotesProvider,
 	TrashProvider,
@@ -23,7 +24,9 @@ ReactDOM.render(
 					<LabelProvider>
 						<ArchiveProvider>
 							<TrashProvider>
-								<App />
+								<FooterNavProvider>
+									<App />
+								</FooterNavProvider>
 							</TrashProvider>
 						</ArchiveProvider>
 					</LabelProvider>
