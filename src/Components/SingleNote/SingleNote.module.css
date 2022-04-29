@@ -49,6 +49,12 @@
 	font-size: 3rem;
 	font-weight: 700;
 	text-transform: uppercase;
+	word-break: break-word;
+	width: 80%;
+}
+
+.noteContent {
+	word-break: break-word;
 }
 
 .noteContent > * {
