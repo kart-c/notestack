@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useArchive, useLabel, useNotes, useTrash } from '../../Context';
+import { useArchive, useLabel, useNotes, useTrash, useFooterNav } from '../../Context';
 import { priorityFilter, searchNotes, sortByDate } from '../../Utils';
 import { NoteCard } from '../NoteCard/NoteCard';
 import styles from './LabelNotes.module.css';
@@ -27,6 +27,8 @@ const LabelNotes = () => {
 	const {
 		labelState: { labels },
 	} = useLabel();
+
+	const { footerNav, setFooterNav } = useFooterNav();
 
 	const checkCurrPage = () =>
 		location.pathname.includes('home')
@@ -57,70 +59,81 @@ const LabelNotes = () => {
 	const searchedLabelPage = searchNotes(sortedLabelPage, searchValue);
 
 	return (
-		<div className={styles.labelNotes}>
-			<div className={`input-container ${styles.inputContainer}`}>
-				<input
-					type="text"
-					id="search"
-					name="search"
-					placeholder="Search Notes by Title..."
-					autoComplete="off"
-					value={searchValue}
-					onChange={(e) => setSearchValue(e.target.value)}
-				/>
-				<i className="fa-solid fa-magnifying-glass"></i>
-			</div>
-			<div className={styles.labelFilter}>
-				<button
-					className={`btn btn-primary ${styles.sortBtn}`}
-					onClick={() => setSortBy('lowToHigh')}
-				>
-					Oldest First
-				</button>
-				<button
-					className={`btn btn-primary ${styles.sortBtn}`}
-					onClick={() => setSortBy('highToLow')}
-				>
-					Newest First
-				</button>
-			</div>
-			<div className={styles.priority}>
-				<select
-					name="priority"
-					id="priority"
-					value={priority}
-					onChange={(e) => setPriority(e.target.value)}
-				>
-					<option value="">Default</option>
-					<option value="low">Low</option>
-					<option value="high">High</option>
-				</select>
-			</div>
-			{location.pathname.includes('home') ||
-			location.pathname.includes('archive') ||
-			location.pathname.includes('trash') ? (
-				searchedCurrPage.length > 0 ? (
+		<>
+			<div
+				className={footerNav.labelNotes ? styles.backdrop : ''}
+				onClick={() => setFooterNav((prev) => ({ ...prev, labelNotes: false }))}
+			></div>
+			<div
+				className={`${styles.labelNotes} ${footerNav.labelNotes ? styles.mobileLabelNotes : ''}`}
+			>
+				<div className={`input-container ${styles.inputContainer}`}>
+					<input
+						type="text"
+						id="search"
+						name="search"
+						placeholder="Search Notes by Title..."
+						autoComplete="off"
+						value={searchValue}
+						onChange={(e) => setSearchValue(e.target.value)}
+					/>
+					<i className="fa-solid fa-magnifying-glass"></i>
+				</div>
+				<div className={styles.labelFilter}>
+					<button
+						className={`btn btn-primary ${styles.sortBtn}`}
+						onClick={() => setSortBy('lowToHigh')}
+					>
+						Oldest First
+					</button>
+					<button
+						className={`btn btn-primary ${styles.sortBtn}`}
+						onClick={() => setSortBy('highToLow')}
+					>
+						Newest First
+					</button>
+				</div>
+				<div className={styles.priority}>
+					<select
+						name="priority"
+						id="priority"
+						value={priority}
+						onChange={(e) => setPriority(e.target.value)}
+					>
+						<option value="">Default</option>
+						<option value="low">Low</option>
+						<option value="high">High</option>
+					</select>
+				</div>
+				{location.pathname.includes('home') ||
+				location.pathname.includes('archive') ||
+				location.pathname.includes('trash') ? (
+					searchedCurrPage.length > 0 ? (
+						<>
+							<div className={styles.allNotes}>
+								{searchedCurrPage.map((note) => (
+									<NoteCard key={note._id} {...note} />
+								))}
+							</div>
+						</>
+					) : null
+				) : searchedLabelPage.length > 0 ? (
 					<>
 						<div className={styles.allNotes}>
-							{searchedCurrPage.map((note) => (
-								<NoteCard key={note._id} {...note} />
+							{searchedLabelPage.map((note) => (
+								<NoteCard key={note._id} {...note} currentLabel={currentLabel} />
 							))}
 						</div>
 					</>
-				) : null
-			) : searchedLabelPage.length > 0 ? (
-				<>
-					<div className={styles.allNotes}>
-						{searchedLabelPage.map((note) => (
-							<NoteCard key={note._id} {...note} currentLabel={currentLabel} />
-						))}
-					</div>
-				</>
-			) : null}
-			<button className={`btn btn-primary ${styles.newNoteBtn}`} onClick={() => navigate('/home')}>
-				Add New Note
-			</button>
-		</div>
+				) : null}
+				<button
+					className={`btn btn-primary ${styles.newNoteBtn}`}
+					onClick={() => navigate('/home')}
+				>
+					Add New Note
+				</button>
+			</div>
+		</>
 	);
 };
 
