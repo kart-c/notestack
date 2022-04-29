@@ -9,3 +9,4 @@ export { NoteCard } from './NoteCard/NoteCard';
 export { SingleNote } from './SingleNote/SingleNote';
 export { LabelModal } from './LabelModal/LabelModal';
 export { RequiresAuth } from './RequiresAuth/RequiresAuth';
+export { FooterNav } from './BtnFooter/FooterNav';
