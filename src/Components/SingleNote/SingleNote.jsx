@@ -151,21 +151,10 @@ const SingleNote = () => {
 							<div className={styles.btnContainer}>
 								{location.pathname.includes('trash') ||
 								location.pathname.includes('archive') ? null : (
-									<button
-										title="edit"
-										className={styles.editBtn}
-										onClick={() => setIsEditable(true)}
-									>
+									<button title="edit" onClick={() => setIsEditable(true)}>
 										<i className="fa-solid fa-pen-to-square"></i>
 									</button>
 								)}
-								{location.pathname.includes('trash') ||
-								location.pathname.includes('archive') ? null : (
-									<button title="pin">
-										<i className="fa-solid fa-thumbtack"></i>
-									</button>
-								)}
-
 								{location.pathname.includes('trash') ? null : (
 									<button
 										title={location.pathname.includes('home') ? 'archive' : 'unarchive'}
