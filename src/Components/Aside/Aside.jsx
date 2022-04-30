@@ -44,13 +44,22 @@ const Aside = () => {
 					</>
 				) : null}
 				<div className={styles.asideBtnList}>
-					<NavLink to="/home" className={activeClass}>
+					<NavLink
+						to="/home"
+						className={activeClass}
+						onClick={() => setFooterNav((prev) => ({ ...prev, nav: false }))}
+					>
 						<i className="fa-solid fa-clipboard"></i> All notes
 					</NavLink>
 					<div className={styles.spacer}></div>
 					{labels.length > 0
 						? labels.map((label) => (
-								<NavLink key={label} to={`/${label}`} className={activeClass}>
+								<NavLink
+									key={label}
+									to={`/${label}`}
+									className={activeClass}
+									onClick={() => setFooterNav((prev) => ({ ...prev, nav: false }))}
+								>
 									<i className="fa-solid fa-tag"></i> {label}
 								</NavLink>
 						  ))
@@ -64,10 +73,18 @@ const Aside = () => {
 					<div className={styles.spacer}></div>
 				</div>
 				<div className={`${styles.asideBtnList} ${styles.btnListTwo}`}>
-					<NavLink to="/archive" className={activeClass}>
+					<NavLink
+						to="/archive"
+						className={activeClass}
+						onClick={() => setFooterNav((prev) => ({ ...prev, nav: false }))}
+					>
 						<i className="fa-solid fa-box-archive"></i> Archive
 					</NavLink>
-					<NavLink to="/trash" className={activeClass}>
+					<NavLink
+						to="/trash"
+						className={activeClass}
+						onClick={() => setFooterNav((prev) => ({ ...prev, nav: false }))}
+					>
 						<i className="fa-solid fa-trash-can"></i> Trash
 					</NavLink>
 				</div>
