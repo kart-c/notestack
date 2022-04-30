@@ -58,6 +58,11 @@ const LabelNotes = () => {
 
 	const searchedLabelPage = searchNotes(sortedLabelPage, searchValue);
 
+	const newNoteBtnHandler = () => {
+		setFooterNav((prev) => ({ ...prev, labelNotes: false }));
+		navigate('/home');
+	};
+
 	return (
 		<>
 			<div
@@ -126,10 +131,7 @@ const LabelNotes = () => {
 						</div>
 					</>
 				) : null}
-				<button
-					className={`btn btn-primary ${styles.newNoteBtn}`}
-					onClick={() => navigate('/home')}
-				>
+				<button className={`btn btn-primary ${styles.newNoteBtn}`} onClick={newNoteBtnHandler}>
 					Add New Note
 				</button>
 			</div>
