@@ -5,6 +5,7 @@ import { useArchive, useAuth, useNotes, useTrash } from '../../Context';
 import { addNewNote, archiveDelete, archiveNote, deleteNote, unarchiveNote } from '../../Services';
 import { bgColorCheck, chipColor } from '../../Utils';
 import { Editor } from '../Editor/Editor';
+import { FooterNav } from '../../Components';
 import styles from './SingleNote.module.css';
 
 const SingleNote = () => {
@@ -202,6 +203,7 @@ const SingleNote = () => {
 							{checkCurrPage() && HtmlParser(checkCurrPage().content)}
 						</div>
 					</article>
+					<FooterNav />
 				</div>
 			)}
 		</>
