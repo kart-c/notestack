@@ -5,7 +5,7 @@ import styles from './LabelPage.module.css';
 const LabelPage = () => {
 	return (
 		<>
-			<div className={styles.labelPageContainer}></div>
+			<div className={styles.labelPageContainer}>Choose a note to see</div>
 			<FooterNav />
 		</>
 	);

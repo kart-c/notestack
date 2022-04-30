@@ -5,7 +5,7 @@ import styles from './Trash.module.css';
 const Trash = () => {
 	return (
 		<>
-			<div className={styles.trashContainer}></div>;
+			<div className={styles.trashContainer}>Choose a note to see</div>;
 			<FooterNav />
 		</>
 	);
