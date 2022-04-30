@@ -1,8 +1,14 @@
 import React from 'react';
+import { FooterNav } from '../../Components';
 import styles from './LabelPage.module.css';
 
 const LabelPage = () => {
-	return <div className={styles.labelPageContainer}></div>;
+	return (
+		<>
+			<div className={styles.labelPageContainer}></div>
+			<FooterNav />
+		</>
+	);
 };
 
 export { LabelPage };
