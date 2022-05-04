@@ -1,10 +1,16 @@
 import { useState } from 'react';
-import styles from './Landing.module.css';
-import HeroImg from '../../Assets/hero-img.png';
 import { LoginModal, Backdrop } from '../../Components';
+import { useAuth } from '../../Context';
+import HeroImg from '../../Assets/hero-img.png';
+import styles from './Landing.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
 	const [modalState, setModalState] = useState();
+	const {
+		authState: { token },
+	} = useAuth();
+	const navigate = useNavigate();
 
 	return (
 		<>
@@ -40,18 +46,29 @@ const Landing = () => {
 							free. Forever.
 						</p>
 						<div className={styles.authContainer}>
-							<button
-								className={`btn btn-primary ${styles.primaryBtn}`}
-								onClick={() => setModalState('signup')}
-							>
-								Join Now
-							</button>
-							<button
-								className={`btn btn-primary ${styles.secondaryBtn}`}
-								onClick={() => setModalState('login')}
-							>
-								Already have an account ?
-							</button>
+							{token ? (
+								<button
+									className={`btn btn-primary ${styles.primaryBtn}`}
+									onClick={() => navigate('/home')}
+								>
+									Open Notes
+								</button>
+							) : (
+								<>
+									<button
+										className={`btn btn-primary ${styles.primaryBtn}`}
+										onClick={() => setModalState('signup')}
+									>
+										Join Now
+									</button>
+									<button
+										className={`btn btn-primary ${styles.secondaryBtn}`}
+										onClick={() => setModalState('login')}
+									>
+										Already have an account ?
+									</button>
+								</>
+							)}
 						</div>
 					</div>
 				</section>

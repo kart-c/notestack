@@ -29,26 +29,33 @@
 .noteTitle {
 	display: flex;
 	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.btnContainer {
+	display: inline-flex;
 }
 
 .btnContainer button {
 	font-size: 1.6rem;
 	background-color: transparent;
-	padding: 6px;
+	padding: 4px;
 }
 
-.editBtn {
-	margin-right: 10px;
-}
-
-.btnContainer button:nth-of-type(3) {
-	margin: 0 10px;
+.btnContainer button:nth-of-type(2) {
+	margin: 0 8px;
 }
 
 .noteTitle > p {
 	font-size: 3rem;
 	font-weight: 700;
 	text-transform: uppercase;
+	word-break: break-word;
+	width: 80%;
+}
+
+.noteContent {
+	word-break: break-word;
 }
 
 .noteContent > * {
@@ -109,4 +116,10 @@
 
 .trash {
 	color: var(--danger-color);
+}
+
+@media only screen and (max-width: 980px) {
+	.noteContainer {
+		height: 100vh;
+	}
 }

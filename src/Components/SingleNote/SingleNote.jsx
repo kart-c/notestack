@@ -5,6 +5,7 @@ import { useArchive, useAuth, useNotes, useTrash } from '../../Context';
 import { addNewNote, archiveDelete, archiveNote, deleteNote, unarchiveNote } from '../../Services';
 import { bgColorCheck, chipColor } from '../../Utils';
 import { Editor } from '../Editor/Editor';
+import { FooterNav } from '../../Components';
 import styles from './SingleNote.module.css';
 
 const SingleNote = () => {
@@ -151,21 +152,10 @@ const SingleNote = () => {
 							<div className={styles.btnContainer}>
 								{location.pathname.includes('trash') ||
 								location.pathname.includes('archive') ? null : (
-									<button
-										title="edit"
-										className={styles.editBtn}
-										onClick={() => setIsEditable(true)}
-									>
+									<button title="edit" onClick={() => setIsEditable(true)}>
 										<i className="fa-solid fa-pen-to-square"></i>
 									</button>
 								)}
-								{location.pathname.includes('trash') ||
-								location.pathname.includes('archive') ? null : (
-									<button title="pin">
-										<i className="fa-solid fa-thumbtack"></i>
-									</button>
-								)}
-
 								{location.pathname.includes('trash') ? null : (
 									<button
 										title={location.pathname.includes('home') ? 'archive' : 'unarchive'}
@@ -213,6 +203,7 @@ const SingleNote = () => {
 							{checkCurrPage() && HtmlParser(checkCurrPage().content)}
 						</div>
 					</article>
+					<FooterNav />
 				</div>
 			)}
 		</>
