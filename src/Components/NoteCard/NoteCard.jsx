@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import HtmlParser from 'react-html-parser/lib/HtmlParser';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useLabel } from '../../Context';
+import { useFooterNav } from '../../Context';
 import { bgColorCheck } from '../../Utils';
 import styles from './NoteCard.module.css';
 
@@ -12,7 +12,7 @@ const NoteCard = ({ title, content, bgColor, _id, currentLabel, date, priority }
 
 	const location = useLocation();
 
-	const {} = useLabel();
+	const { setFooterNav } = useFooterNav();
 
 	useEffect(() => {
 		if (currentLabel) {
@@ -32,11 +32,13 @@ const NoteCard = ({ title, content, bgColor, _id, currentLabel, date, priority }
 		return `${newDate[2]} ${newDate[1]} ${newTime}`;
 	};
 
+	const newNoteHandler = () => {
+		navigate(`/${currPage}/${_id}`);
+		setFooterNav((prev) => ({ ...prev, labelNotes: false }));
+	};
+
 	return (
-		<article
-			className={`card ${styles.card} ${bgColorCheck(bgColor)}`}
-			onClick={() => navigate(`/${currPage}/${_id}`)}
-		>
+		<article className={`card ${styles.card} ${bgColorCheck(bgColor)}`} onClick={newNoteHandler}>
 			{priority ? <span className={styles.priorityTag}>{priority}</span> : null}
 			<div className={`content ${styles.contentContainer}`}>
 				<div className={styles.title}>

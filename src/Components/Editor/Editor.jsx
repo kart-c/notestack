@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import { contentModules, titleModules } from './quill.module';
-import 'react-quill/dist/quill.snow.css';
 import { addNewNote, editNote } from '../../Services';
 import { useAuth, useLabel, useNotes } from '../../Context';
 import { bgColorCheck, chipColor } from '../../Utils';
-import styles from './Editor.module.css';
-import './Quill.css';
 import { useParams } from 'react-router-dom';
-import { LabelModal } from '../LabelModal/LabelModal';
+import { LabelModal, FooterNav } from '../../Components';
+import styles from './Editor.module.css';
+import 'react-quill/dist/quill.snow.css';
+import './Quill.css';
 
 const Editor = ({
 	setIsEditable,
@@ -106,101 +106,104 @@ const Editor = ({
 	};
 
 	return (
-		<section className={styles.editorSection}>
-			{labelModal ? <LabelModal setLabelModal={setLabelModal} /> : null}
-			<h3 className={styles.editorTitle}>Title</h3>
-			<ReactQuill
-				className={`${styles.quill} ${bgColorCheck(bgColor)}`}
-				theme="snow"
-				value={newNote.title}
-				onChange={(e) => setNewNote((prev) => ({ ...prev, title: e }))}
-				modules={titleModules}
-			/>
-			<h3 className={styles.editorTitle}>Content</h3>
-			<ReactQuill
-				className={`${styles.quill} ${bgColorCheck(bgColor)}`}
-				theme="snow"
-				value={newNote.content}
-				onChange={(e) => setNewNote((prev) => ({ ...prev, content: e }))}
-				modules={contentModules}
-			/>
-			<div className={styles.chipContainer}>
-				{noteLabels.length > 0
-					? noteLabels.map((label) => (
-							<span className={`${styles.chip}  ${chipColor(bgColorCheck(bgColor))}`} key={label}>
+		<>
+			<section className={styles.editorSection}>
+				{labelModal ? <LabelModal setLabelModal={setLabelModal} /> : null}
+				<h3 className={styles.editorTitle}>Title</h3>
+				<ReactQuill
+					className={`${styles.quill} ${bgColorCheck(bgColor)}`}
+					theme="snow"
+					value={newNote.title}
+					onChange={(e) => setNewNote((prev) => ({ ...prev, title: e }))}
+					modules={titleModules}
+				/>
+				<h3 className={styles.editorTitle}>Content</h3>
+				<ReactQuill
+					className={`${styles.quill} ${bgColorCheck(bgColor)}`}
+					theme="snow"
+					value={newNote.content}
+					onChange={(e) => setNewNote((prev) => ({ ...prev, content: e }))}
+					modules={contentModules}
+				/>
+				<div className={styles.chipContainer}>
+					{noteLabels.length > 0
+						? noteLabels.map((label) => (
+								<span className={`${styles.chip}  ${chipColor(bgColorCheck(bgColor))}`} key={label}>
+									{label}
+									<button onClick={() => removeLabelHandler(label)}>
+										<i className="fas fa-times-circle"></i>
+									</button>
+								</span>
+						  ))
+						: null}
+				</div>
+				<div className={styles.labelDropdown}>
+					<span>
+						<i className="fa-solid fa-tag"></i>
+					</span>
+					<select name="label" id="label" onChange={addLabelHandler} value="">
+						<option value="label">Select label</option>
+						{labels.map((label) => (
+							<option value={label} key={label}>
 								{label}
-								<button onClick={() => removeLabelHandler(label)}>
-									<i className="fas fa-times-circle"></i>
-								</button>
-							</span>
-					  ))
-					: null}
-			</div>
-			<div className={styles.labelDropdown}>
-				<span>
-					<i className="fa-solid fa-tag"></i>
-				</span>
-				<select name="label" id="label" onChange={addLabelHandler} value="">
-					<option value="label">Select label</option>
-					{labels.map((label) => (
-						<option value={label} key={label}>
-							{label}
+							</option>
+						))}
+					</select>
+					<button className="btn btn-primary" onClick={() => setLabelModal(true)}>
+						Add New Label
+					</button>
+				</div>
+				<div className={styles.priorityDropdown}>
+					<span>
+						<i className="fa-solid fa-star"></i>
+					</span>
+					<select
+						name="priority"
+						id="priority"
+						onChange={(e) => setPriority(e.target.value)}
+						value={priority}
+					>
+						<option value="">Default</option>
+						<option value="low">Low</option>
+						<option value="high">High</option>
+					</select>
+				</div>
+				<div className={styles.colorContainer}>
+					<span>
+						<i className="fa-solid fa-palette"></i>
+					</span>
+					<select
+						name="select-color"
+						id="select-color"
+						value={bgColor}
+						onChange={(e) => setBgColor(e.target.value)}
+					>
+						<option value="gray" default>
+							Gray
 						</option>
-					))}
-				</select>
-				<button className="btn btn-primary" onClick={() => setLabelModal(true)}>
-					Add New Label
-				</button>
-			</div>
-			<div className={styles.priorityDropdown}>
-				<span>
-					<i className="fa-solid fa-star"></i>
-				</span>
-				<select
-					name="priority"
-					id="priority"
-					onChange={(e) => setPriority(e.target.value)}
-					value={priority}
-				>
-					<option value="">Default</option>
-					<option value="low">Low</option>
-					<option value="high">High</option>
-				</select>
-			</div>
-			<div className={styles.colorContainer}>
-				<span>
-					<i className="fa-solid fa-palette"></i>
-				</span>
-				<select
-					name="select-color"
-					id="select-color"
-					value={bgColor}
-					onChange={(e) => setBgColor(e.target.value)}
-				>
-					<option value="gray" default>
-						Gray
-					</option>
-					<option value="red">Red</option>
-					<option value="yellow">Yellow</option>
-					<option value="green">Green</option>
-					<option value="blue">Blue</option>
-					<option value="purple">Purple</option>
-				</select>
+						<option value="red">Red</option>
+						<option value="yellow">Yellow</option>
+						<option value="green">Green</option>
+						<option value="blue">Blue</option>
+						<option value="purple">Purple</option>
+					</select>
+					<button
+						className={` btn btn-primary ${styles.clearBtn}`}
+						onClick={() => setBgColor('gray')}
+					>
+						Clear
+					</button>
+				</div>
 				<button
-					className={` btn btn-primary ${styles.clearBtn}`}
-					onClick={() => setBgColor('gray')}
+					className={`btn btn-primary ${styles.btn}`}
+					onClick={title && content ? updateCardHandler : newNoteHandler}
+					disabled={loading}
 				>
-					Clear
+					Submit
 				</button>
-			</div>
-			<button
-				className={`btn btn-primary ${styles.btn}`}
-				onClick={title && content ? updateCardHandler : newNoteHandler}
-				disabled={loading}
-			>
-				Submit
-			</button>
-		</section>
+			</section>
+			<FooterNav />
+		</>
 	);
 };
 

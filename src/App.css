@@ -23,9 +23,9 @@
 }
 
 /* iframe style was given to avoid the react overlay bug */
-/* iframe {
+iframe {
 	pointer-events: none;
-} */
+}
 
 .Toastify__toast-container--top-right {
 	font-size: var(--text-md);
