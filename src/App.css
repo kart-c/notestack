@@ -20,6 +20,7 @@
 	--chip-purple: #ca8ffe;
 	--toastify-toast-min-height: 5.6rem;
 	--toastify-color-info: var(--info-color);
+	font-size: 75%;
 }
 
 /* iframe style was given to avoid the react overlay bug */
@@ -27,7 +28,7 @@ iframe {
 	pointer-events: none;
 }
 
-.Toastify__toast-container--top-right {
+.Toastify__toast-container--bottom-right {
 	font-size: var(--text-md);
 }
 
