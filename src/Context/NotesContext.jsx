@@ -22,7 +22,7 @@ const NotesProvider = ({ children }) => {
 				toast.error('Something went wrong! Cannot get notes');
 			}
 		})();
-	}, []);
+	}, [token]);
 	const [notesState, notesDispatch] = useReducer(notesReducer, { notes: [] });
 	return (
 		<NotesContext.Provider value={{ notesState, notesDispatch }}>{children}</NotesContext.Provider>
