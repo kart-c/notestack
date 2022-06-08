@@ -27,9 +27,10 @@ const NoteCard = ({ title, content, bgColor, _id, currentLabel, date, priority }
 	});
 
 	const cardDate = (date) => {
-		const newDate = new Date(date).toDateString().split(' ');
-		const newTime = new Date(date).toLocaleTimeString().slice(0, 5);
-		return `${newDate[2]} ${newDate[1]} ${newTime}`;
+		const newDate = new Date(date).toLocaleString('en-In', { day: '2-digit' });
+		const month = new Date(date).toLocaleString('en-In', { month: 'short' });
+		const year = new Date(date).getFullYear();
+		return `${newDate} ${month} ${year}`;
 	};
 
 	const newNoteHandler = () => {

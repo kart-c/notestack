@@ -129,6 +129,14 @@ const SingleNote = () => {
 		navigate('/trash');
 	};
 
+	const getDate = (date) => {
+		const newDate = new Date(date).toLocaleString('en-In', { day: '2-digit' });
+		const month = new Date(date).toLocaleString('en-In', { month: 'short' });
+		const year = new Date(date).getFullYear();
+		const time = new Date(date).toLocaleTimeString('en-In');
+		return `${newDate} ${month} ${year} ${time}`;
+	};
+
 	return (
 		<>
 			{isEditable ? (
@@ -183,10 +191,10 @@ const SingleNote = () => {
 								</button>
 							</div>
 						</div>
-						<small>{checkCurrPage() && checkCurrPage().date}</small>
+						<small>{checkCurrPage() && getDate(checkCurrPage().date)}</small>
 
 						<div className={styles.chipContainer}>
-							{checkCurrPage() && checkCurrPage().tags.length > 0
+							{checkCurrPage() && checkCurrPage().tags?.length > 0
 								? checkCurrPage().tags.map((label) => (
 										<span
 											className={`${styles.chip}  ${chipColor(
