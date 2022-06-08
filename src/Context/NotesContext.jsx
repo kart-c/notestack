@@ -19,7 +19,7 @@ const NotesProvider = ({ children }) => {
 					notesDispatch({ type: 'GET_ALL_NOTES', payload: getAllNotes.data.notes });
 				}
 			} catch (error) {
-				toast.error('Something went wrong! Cannot get notes');
+				if (token) toast.error('Something went wrong! Cannot get notes');
 			}
 		})();
 	}, [token]);

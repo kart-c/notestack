@@ -23,8 +23,6 @@ const Signup = ({ setModalState }) => {
 			try {
 				const response = await loginService(signupData, 'signup');
 				if (response.status === 201) {
-					localStorage.setItem('token', response.data.encodedToken);
-					localStorage.setItem('user', JSON.stringify(response.data.createdUser));
 					authDispatch({ type: 'AUTH', payload: response.data });
 					toast.success(`Welcome ${response.data.createdUser.firstName}`);
 					setModalState('');

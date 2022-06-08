@@ -17,9 +17,11 @@ const Login = ({ setModalState }) => {
 		try {
 			const response = await loginService(loginData, 'login');
 			if (response.status === 200) {
+				if (loginData.rememberMe) {
+					localStorage.setItem('token', response.data.encodedToken);
+					localStorage.setItem('user', JSON.stringify(response.data.foundUser));
+				}
 				toast.success(`Welcome back! ${response.data.foundUser.firstName}`);
-				localStorage.setItem('token', response.data.encodedToken);
-				localStorage.setItem('user', JSON.stringify(response.data.foundUser));
 				authDispatch({ type: 'AUTH', payload: response.data });
 				setModalState('');
 				navigate('/home');
