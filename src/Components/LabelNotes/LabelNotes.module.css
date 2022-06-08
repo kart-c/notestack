@@ -1,6 +1,6 @@
 .labelNotes {
 	background-color: var(--body-bg-2);
-	width: 24rem;
+	flex-basis: 24rem;
 	padding: 1.6rem;
 	flex-shrink: 0;
 	display: flex;

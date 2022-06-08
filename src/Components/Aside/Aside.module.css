@@ -1,6 +1,6 @@
 .aside {
 	background-color: #1d2136;
-	width: 24rem;
+	flex-basis: 24rem;
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
