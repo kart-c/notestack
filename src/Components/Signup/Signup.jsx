@@ -19,40 +19,25 @@ const Signup = ({ setModalState }) => {
 
 	const signupHandler = async (e) => {
 		e.preventDefault();
-		if (
-			signupData.email &&
-			signupData.password &&
-			signupData.firstName &&
-			signupData.confirmPassword
-		) {
-			if (signupData.password === signupData.confirmPassword) {
-				try {
-					const response = await loginService(signupData, 'signup');
-					if (response.status === 201) {
-						localStorage.setItem('token', response.data.encodedToken);
-						localStorage.setItem('user', JSON.stringify(response.data.createdUser));
-						authDispatch({ type: 'AUTH', payload: response.data });
-						toast.success(`Welcome ${response.data.createdUser.firstName}`);
-						setModalState('');
-						navigate('/home');
-					} else {
-						console.error('ERROR: ', response);
-						alert('ERROR');
-					}
-				} catch (error) {
-					console.error('ERROR: ', error);
-					alert('ERROR');
+		if (signupData.password === signupData.confirmPassword) {
+			try {
+				const response = await loginService(signupData, 'signup');
+				if (response.status === 201) {
+					authDispatch({ type: 'AUTH', payload: response.data });
+					toast.success(`Welcome ${response.data.createdUser.firstName}`);
+					setModalState('');
+					navigate('/home');
 				}
-			} else {
-				toast.error('Passwords do not match');
+			} catch (error) {
+				toast.error(error.response.data.errors[0]);
 			}
 		} else {
-			toast.warning('Fill all inputs');
+			toast.error('Passwords do not match');
 		}
 	};
 	return (
 		<div className={styles.modal}>
-			<form>
+			<form onSubmit={signupHandler}>
 				<h3>Signup</h3>
 				<div className={`input-container ${styles.inputContainer}`}>
 					<label htmlFor="name">Full Name </label>
@@ -63,6 +48,7 @@ const Signup = ({ setModalState }) => {
 						placeholder="John Doe"
 						value={signupData.firstName}
 						onChange={(e) => setSignupData((prev) => ({ ...prev, firstName: e.target.value }))}
+						required
 					/>
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
@@ -74,6 +60,7 @@ const Signup = ({ setModalState }) => {
 						placeholder="johndoe@gmail.com"
 						value={signupData.email}
 						onChange={(e) => setSignupData((prev) => ({ ...prev, email: e.target.value }))}
+						required
 					/>
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
@@ -85,6 +72,7 @@ const Signup = ({ setModalState }) => {
 						placeholder="************"
 						value={signupData.password}
 						onChange={(e) => setSignupData((prev) => ({ ...prev, password: e.target.value }))}
+						required
 					/>
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
@@ -98,15 +86,16 @@ const Signup = ({ setModalState }) => {
 						onChange={(e) =>
 							setSignupData((prev) => ({ ...prev, confirmPassword: e.target.value }))
 						}
+						required
 					/>
 				</div>
 				<div className={styles.checkboxContainer}>
 					<div className="checkbox-container ">
-						<input type="checkbox" name="disabled example input" id="checkbox-1" />
+						<input type="checkbox" name="terms and conditions" id="checkbox-1" required />
 						<label htmlFor="checkbox-1">Accept all terms and conditions</label>
 					</div>
 				</div>
-				<button className={`btn ${styles.btn}`} type="submit" onClick={signupHandler}>
+				<button className={`btn ${styles.btn}`} type="submit">
 					Signup
 				</button>
 				<div className={styles.spacer}>

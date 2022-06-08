@@ -122,7 +122,7 @@ const LabelNotes = () => {
 							</div>
 						</>
 					) : null
-				) : searchedLabelPage.length > 0 ? (
+				) : searchedLabelPage?.length > 0 ? (
 					<>
 						<div className={styles.allNotes}>
 							{searchedLabelPage.map((note) => (

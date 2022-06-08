@@ -1,6 +1,9 @@
 export const notesReducer = (state, action) => {
 	const { payload } = action;
 	switch (action.type) {
+		case 'GET_ALL_NOTES':
+			return { ...state, notes: payload };
+
 		case 'NEW_NOTE':
 			return { ...state, notes: payload };
 

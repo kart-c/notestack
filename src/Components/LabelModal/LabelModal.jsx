@@ -18,7 +18,7 @@ const LabelModal = ({ setLabelModal }) => {
 	}, []);
 
 	const newLabelHandler = () => {
-		if (newLabel) {
+		if (newLabel.trim()) {
 			if (labels.some((label) => label === newLabel)) {
 				toast.info(`${newLabel} already exists!`);
 				setNewLabel('');
@@ -27,6 +27,9 @@ const LabelModal = ({ setLabelModal }) => {
 				setLabelModal(false);
 				setNewLabel('');
 			}
+		} else {
+			toast.warn('label cannot be empty');
+			setNewLabel('');
 		}
 	};
 
@@ -43,7 +46,7 @@ const LabelModal = ({ setLabelModal }) => {
 						name="label"
 						placeholder="Travel"
 						value={newLabel}
-						onChange={(e) => setNewLabel(e.target.value.trim())}
+						onChange={(e) => setNewLabel(e.target.value)}
 					/>
 				</div>
 				<button className="btn btn-info btn-round" onClick={newLabelHandler}>

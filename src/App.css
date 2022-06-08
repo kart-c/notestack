@@ -27,7 +27,7 @@ iframe {
 	pointer-events: none;
 }
 
-.Toastify__toast-container--top-right {
+.Toastify__toast-container--bottom-right {
 	font-size: var(--text-md);
 }
 

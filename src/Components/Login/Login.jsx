@@ -6,7 +6,7 @@ import { loginService } from '../../Services';
 import styles from './Login.module.css';
 
 const Login = ({ setModalState }) => {
-	const [loginData, setLoginData] = useState({ email: '', password: '' });
+	const [loginData, setLoginData] = useState({ email: '', password: '', rememberMe: false });
 
 	const { authDispatch } = useAuth();
 
@@ -17,15 +17,16 @@ const Login = ({ setModalState }) => {
 		try {
 			const response = await loginService(loginData, 'login');
 			if (response.status === 200) {
+				if (loginData.rememberMe) {
+					localStorage.setItem('token', response.data.encodedToken);
+					localStorage.setItem('user', JSON.stringify(response.data.foundUser));
+				}
 				toast.success(`Welcome back! ${response.data.foundUser.firstName}`);
-				localStorage.setItem('token', response.data.encodedToken);
-				localStorage.setItem('user', JSON.stringify(response.data.foundUser));
 				authDispatch({ type: 'AUTH', payload: response.data });
 				setModalState('');
 				navigate('/home');
 			} else {
 				console.error('ERROR: ', response);
-				alert('ERROR');
 			}
 		} catch (error) {
 			toast.error(error.response.data.errors[0]);
@@ -34,7 +35,7 @@ const Login = ({ setModalState }) => {
 
 	return (
 		<div className={styles.modal}>
-			<form>
+			<form onSubmit={loginHandler}>
 				<h3>Login</h3>
 				<div className={`input-container ${styles.inputContainer}`}>
 					<label htmlFor="email">Email Address </label>
@@ -45,6 +46,7 @@ const Login = ({ setModalState }) => {
 						placeholder="johndoe@gmail.com"
 						value={loginData.email}
 						onChange={(e) => setLoginData((prev) => ({ ...prev, email: e.target.value }))}
+						required
 					/>
 				</div>
 				<div className={`input-container ${styles.inputContainer}`}>
@@ -56,14 +58,20 @@ const Login = ({ setModalState }) => {
 						placeholder="************"
 						value={loginData.password}
 						onChange={(e) => setLoginData((prev) => ({ ...prev, password: e.target.value }))}
+						required
 					/>
 				</div>
 				<div className={styles.checkboxContainer}>
 					<div className="checkbox-container">
-						<input type="checkbox" name="disabled example input" id="checkbox-1" />
+						<input
+							type="checkbox"
+							name="remember me"
+							id="checkbox-1"
+							checked={loginData.rememberMe}
+							onChange={() => setLoginData((prev) => ({ ...prev, rememberMe: !prev.rememberMe }))}
+						/>
 						<label htmlFor="checkbox-1">Remember me</label>
 					</div>
-					<button type="button">Forgot password?</button>
 				</div>
 				<button
 					className={`btn ${styles.guestLogin}`}
@@ -71,14 +79,15 @@ const Login = ({ setModalState }) => {
 					onClick={() =>
 						setLoginData((prev) => ({
 							...prev,
-							email: 'adarshbalika@gmail.com',
-							password: 'adarshBalika123',
+							email: 'kartik@gmail.com',
+							password: 'kartik123',
+							rememberMe: true,
 						}))
 					}
 				>
-					Guest Login
+					Guest Credentials
 				</button>
-				<button className={`btn ${styles.btn}`} type="submit" onClick={loginHandler}>
+				<button className={`btn ${styles.btn}`} type="submit">
 					Log In
 				</button>
 				<div className={styles.spacer}>

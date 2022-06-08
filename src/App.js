@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { Home, Landing, Archive, Trash, LabelPage } from './Pages';
+import { Home, Landing, Archive, Trash, LabelPage, Error } from './Pages';
 import Mockman from 'mockman-js';
 import { Aside, LabelNotes, RequiresAuth, SingleNote } from './Components';
 import { useLabel } from './Context';
@@ -19,7 +19,7 @@ function App() {
 		<>
 			<ToastContainer
 				theme="colored"
-				position="top-right"
+				position="bottom-right"
 				autoClose={2000}
 				hideProgressBar={false}
 				newestOnTop={false}
@@ -95,6 +95,7 @@ function App() {
 							</Fragment>
 					  ))
 					: null}
+				<Route path="*" element={<Error />} />
 			</Routes>
 		</>
 	);

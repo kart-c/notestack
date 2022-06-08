@@ -1,7 +1,7 @@
 .ql-editor {
 	word-break: break-word;
 	white-space: normal;
-	max-height: 14rem;
+	max-height: 25vh;
 	scrollbar-width: thin;
 	scrollbar-color: var(--secondary-color) transparent;
 }
@@ -21,4 +21,10 @@
 
 .ql-snow .ql-editor blockquote {
 	font-size: 1.4rem;
+}
+
+@media only screen and (max-width: 980px) {
+	.ql-editor {
+		max-height: 13vh;
+	}
 }
