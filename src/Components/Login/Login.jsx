@@ -71,8 +71,8 @@ const Login = ({ setModalState }) => {
 					onClick={() =>
 						setLoginData((prev) => ({
 							...prev,
-							email: 'adarshbalika@gmail.com',
-							password: 'adarshBalika123',
+							email: 'kartik@gmail.com',
+							password: 'kartik123',
 						}))
 					}
 				>
