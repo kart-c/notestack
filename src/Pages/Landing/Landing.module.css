@@ -198,9 +198,3 @@ h3 > span.heroTextDesign {
 		padding: 0.8rem 0;
 	}
 }
-
-@media only screen and (min-width: 1440px) {
-	:root {
-		font-size: 75%;
-	}
-}
